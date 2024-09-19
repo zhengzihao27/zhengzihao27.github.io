@@ -1,0 +1,963 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="笔记">
+      
+      
+        <meta name="author" content="zhengzihao">
+      
+      
+        <link rel="canonical" href="https://zhengzihao1998.github.io./blog/2024/09/13/%E7%89%B9%E5%BE%81%E6%8E%92%E5%BA%8F%E5%9B%A0%E5%AD%90%E6%A8%A1%E5%9E%8B%E4%B8%AD%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+      
+      
+      
+        <link rel="next" href="../../16/%E5%9F%BA%E4%BA%8E%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%9D%87%E5%80%BC%E6%96%B9%E5%B7%AE%E7%AD%96%E7%95%A5/">
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+    
+    
+      
+        <title>特征排序因子模型中的深度学习 - 个人笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.35f28582.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 12a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M6 13h8l-3.5 3.5 1.42 1.42L17.84 12l-5.92-5.92L10.5 7.5 14 11H6z"/></svg>');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#deep-learning-in-characteristics-sorted-factor-models" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="个人笔记" class="md-header__button md-logo" aria-label="个人笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            个人笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              特征排序因子模型中的深度学习
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="个人笔记" class="md-nav__button md-logo" aria-label="个人笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    个人笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    论文笔记
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            论文笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Archive
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Categories
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Categories
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    强化学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    深度学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于我
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ii" class="md-nav__link">
+    <span class="md-ellipsis">
+      II 深度学习和实证资产定价
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iia" class="md-nav__link">
+    <span class="md-ellipsis">
+      II.A 资产定价优化
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iib" class="md-nav__link">
+    <span class="md-ellipsis">
+      II.B 深度学习中的特征排序因子
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iic-fama-french-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      II.C 深度学习中的Fama-French 5 因子模型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iii" class="md-nav__link">
+    <span class="md-ellipsis">
+      III 深度神经网络的结构
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iiia" class="md-nav__link">
+    <span class="md-ellipsis">
+      III.A 深度特征
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iiib" class="md-nav__link">
+    <span class="md-ellipsis">
+      III.B 排序和非线性权重
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iiic-betas" class="md-nav__link">
+    <span class="md-ellipsis">
+      III.C 深度因子和非线性动态betas
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iiid" class="md-nav__link">
+    <span class="md-ellipsis">
+      III.D 最小化损失函数
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../../" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2024-09-13 00:00:00" class="md-ellipsis">September 13, 2024</time>
+                      </div>
+                    </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../../category/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              6 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+
+
+<h1 id="deep-learning-in-characteristics-sorted-factor-models">Deep Learning in Characteristics-Sorted Factor Models</h1>
+<p><strong>Key Words:</strong> Cross-sectional Returns, Deep Learning, Latent Factors, Nonlinearity,
+Security Sorting.</p>
+<!-- more -->
+
+<p><strong>Autor：</strong> Guanhao Feng, Jingyu He, Nicholas G. Polson, Jianeng Xu*</p>
+<p><em>Forthcoming, Journal of Financial and Quantitative Analysis</em></p>
+<h2 id="ii">II 深度学习和实证资产定价</h2>
+<ul>
+<li>II.A 已实现定价误差的资产定价优化</li>
+<li>II.B 特征排序因子模型的深度学习重构</li>
+<li>II.C 实现Fama-French模型作为特例</li>
+</ul>
+<h2 id="iia">II.A  资产定价优化</h2>
+<p>标准的资产定价线性因子模型基于因子风险溢价(factor risk premia)分解如下:</p>
+<div class="arithmatex">\[\begin{equation}
+    E_{t-1}(r_{i,t}) = \boldsymbol{\beta}_{i,t-1}^\intercal \boldsymbol{\lambda_f}
+\end{equation}\]</div>
+<ul>
+<li><span class="arithmatex">\(r_{i,t}:\)</span> 资产 <span class="arithmatex">\(i\)</span> 在时间 <span class="arithmatex">\(t\)</span> 的超额回报</li>
+<li><span class="arithmatex">\(\boldsymbol{\beta}_{i,t-1}:\)</span> 因子在时间 <span class="arithmatex">\(t-1\)</span> 更新的载荷</li>
+<li><span class="arithmatex">\(\boldsymbol{\lambda_f}:\)</span> <span class="arithmatex">\(K \times 1\)</span> 因子 <span class="arithmatex">\(\mathbf{f}_t\)</span> 的风险溢价</li>
+</ul>
+<p>任何潜在的定价误差 <span class="arithmatex">\(\alpha_i\)</span> 都会被添加在右侧</p>
+<div class="arithmatex">\[\begin{equation}
+    E_{t-1}(r_{i,t}) = \alpha_i + \boldsymbol{\beta}_{i,t-1}^\intercal \boldsymbol{\lambda_f}
+\end{equation}\]</div>
+<details class="因子模型">
+<summary>因子模型</summary>
+<p>第一种因子模型可被公式描述如下：</p>
+<div class="arithmatex">\[\begin{equation}
+    \tilde{r}_{i t}=a_{i}+b_{i}^{\prime} \tilde{f}_{t}+\tilde{e}_{i t}
+    \tag{1}
+\end{equation}\]</div>
+<ul>
+<li><span class="arithmatex">\(i=1,2,\dots, N\)</span> 代表不同的股票</li>
+<li><span class="arithmatex">\(t = 1,2,\dots, T\)</span> 代表不同的时段</li>
+<li><span class="arithmatex">\(\tilde{r}_{i t}\)</span> 代表股票 <span class="arithmatex">\(i\)</span> 在 <span class="arithmatex">\(t\)</span> 时刻的收益率</li>
+</ul>
+<p>该因子模型的含义是，股票在每一时刻的收益率可以分为三个部分：</p>
+<ol>
+<li>不随时间改变的常数项 <span class="arithmatex">\(a_i\)</span>。</li>
+<li>由某个变量 <span class="arithmatex">\(\tilde{f}\)</span> 驱动的部分。</li>
+<li>模型未能解释、但与 <span class="arithmatex">\(\tilde{f}\)</span> 无关的部分。</li>
+</ol>
+<p>按照Back(2010)书上的叫法，不妨将公式(1)称为<strong>统计因子模型(statistical factor model)</strong>， <span class="arithmatex">\(\tilde{f}_t\)</span> 称为因子</p>
+<p>第二种因子模型可以被公式描述如下：</p>
+<div class="arithmatex">\[\begin{equation}
+    E[\tilde{r}_{it}] = r_{ft} + b_i^\prime \lambda_t
+    \tag{2}
+\end{equation}\]</div>
+<ul>
+<li><span class="arithmatex">\(r_{ft}\)</span> 是 <span class="arithmatex">\(t\)</span> 时刻的无风险利率</li>
+</ul>
+<p>该因子模型的含义是，股票在每一时刻的收益率可以分为两个部分：</p>
+<ol>
+<li>无风险利率</li>
+<li>由 <span class="arithmatex">\(\lambda_t\)</span> 贡献的部分(也称作风险溢价)</li>
+</ol>
+</details>
+<p>GRS检验。如果存在充分因子模型，那么定价误差的二次项应该在统计上和经济上都是不显著的。但是，在学术文献中并不存在这样的因子模型。</p>
+<p>这篇文章训练了基于滞后特征的betas非线性神经网络。因此，方程(2)中总体模型为：</p>
+<div class="arithmatex">\[\begin{equation}
+    \begin{split}
+        r_{i,t} &amp;= \alpha_i + \boldsymbol{\beta}_{i,t-1}^\intercal \mathbf{f}_t + \epsilon_{i,t}, \\
+        \boldsymbol{\beta}_{i,t-1}^\intercal &amp; = G(\mathbf{z}_{i,t-1})
+    \end{split}
+\end{equation}\]</div>
+<p>其中 betas 的平行神经网络<span class="arithmatex">\(G(\cdot )\)</span> 是与潜在因子 <span class="arithmatex">\(\mathbf{f}_t\)</span> 共同学习的。III.C中有详细的函数形式。</p>
+<p>让 <span class="arithmatex">\(\widehat{r}_{i, t}\)</span> 代表由交易因子 <span class="arithmatex">\(\mathbf{f}_t\)</span> 构造的线性投资组合去模拟资产回报 <span class="arithmatex">\(r_{i,t}\)</span>。
+<span class="arithmatex">\(\widehat{r}_{i, t} = \boldsymbol{\beta}_{i,t-1}^\intercal \mathbf{f}_t\)</span>。若残差项 <span class="arithmatex">\(\epsilon_{i,t}\)</span> 的平均值为0，则截距项<span class="arithmatex">\(\alpha_{i}\)</span> 等于平均拟合误差 <span class="arithmatex">\(\frac{1}{T}\sum_{t=1}^{T}\alpha_{i,t}\)</span>，其中 <span class="arithmatex">\(\alpha_{i,t} = r_{i,t} - \widehat{r}_{i,t}\)</span></p>
+<h2 id="iib">II.B  深度学习中的特征排序因子</h2>
+<p>为了对风险调整后的超额回报进行建模，
+增强深度因子模型除了<span class="arithmatex">\(P_b\)</span>-factor 基准模型 <span class="arithmatex">\(\mathbf{f}_{b,t}\)</span> 
+（CAPM或Fama-French 5因子模型）之外，
+还生成了 <span class="arithmatex">\(P_d\)</span> 深度因子 <span class="arithmatex">\(\mathbf{f}_{d,t}\)</span>，
+共同定价个股回报。
+这里使用 <span class="arithmatex">\(\mathbf{f}_t = [\mathbf{f}_{d,t}^\intercal,\mathbf{f}_{b,t}^\intercal]^\intercal\)</span> 
+表示两组因子，即深度因子和基准因子。
+将已实现回报预测 <span class="arithmatex">\(\widehat{r}_{i,t}\)</span> 构造为 <span class="arithmatex">\(\mathbf{f}_{d,t}\)</span> 和 <span class="arithmatex">\(\mathbb{f}_{b,f}\)</span> 的无截距项的线性组合。
+因此，拟合误差 <span class="arithmatex">\(\alpha_{i,t}\)</span>，衡量了横截面和时间序列的变化。完整的模型为：</p>
+<div class="arithmatex">\[\begin{equation}
+    \begin{split}
+        \widehat{r}_{i,t} &amp; = \boldsymbol{\beta}(\mathbf{z}_{i,t-1})^\intercal \mathbf{f}_t \\
+            &amp; = \boldsymbol{\beta}_d(\mathbf{z}_{i,t-1})^\intercal \mathbf{f}_{d,t} + \boldsymbol{\beta}_b(\mathbf{z}_{i,t-1})^\intercal \mathbf{f}_{b,t}, \\
+        \alpha_{i,t} &amp; = r_{i,t} - \widehat{r}_{i,t}, \\
+        \mathbf{f}_{d,t} &amp; = \mathbf{W}_{t-1} \mathbf{r}_t, \\
+        \mathbf{W}_{t-1} &amp; = H(\mathbf{Z}_{t-1}), \\
+        \boldsymbol{\beta}(\mathbf{z}_{i,t-1}) &amp; = G(\mathbf{z}_{i,t-1}),
+    \end{split}
+\end{equation}\]</div>
+<ul>
+<li><span class="arithmatex">\(\boldsymbol{\beta}(\mathbf{z}_{i,t-1})^\intercal = [\boldsymbol{\beta}_d(\mathbf{z}_{i,t-1})^\intercal, \boldsymbol{\beta}_b(\mathbf{z}_{i,t-1})^\intercal]\)</span> 
+是分别对应于潜在深度因子和基准因子的动态 betas 。</li>
+<li><span class="arithmatex">\(\mathbf{r}_t = (r_{1,t},\dots,r_{N,t})\)</span> 表示月份 <span class="arithmatex">\(t\)</span> 时 <span class="arithmatex">\(N\)</span> 个股的回报向量</li>
+<li><span class="arithmatex">\(\mathbf{W}_{t-1}\)</span> 是由月份 <span class="arithmatex">\(t−1\)</span> 确定的 <span class="arithmatex">\(P_d \times N\)</span> 矩阵，
+用于 long-short 投资组合权重。</li>
+<li><span class="arithmatex">\(\mathbf{Z}_{t-1} = (\mathbf{z}_{1,t-1},\dots,\mathbf{z}_{N,t-1})\)</span> 
+是滞后公司特征的 <span class="arithmatex">\(K_0 \times N\)</span> 维矩阵。</li>
+</ul>
+<p>目标是最小化在所有周期和资产的已实现定价误差的二次和：</p>
+<div class="arithmatex">\[\begin{equation}
+    \mathcal{L}_\lambda = \sum_{i=1}^{N}\sum_{t=1}^{T_i}(r_{i,t} - \boldsymbol{\beta}(\mathbf{z}_{i,t-1})^\intercal \mathbf{f}_t)^2 + \lambda \times \text{penalty(DL)}, 
+\end{equation}\]</div>
+<h2 id="iic-fama-french-5">II.C  深度学习中的Fama-French 5 因子模型</h2>
+<figure>
+  <img alt="Image title" src="../../../../%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%89%B9%E5%BE%81%E5%9B%A0%E5%AD%90%E6%8E%92%E5%BA%8F%E6%A8%A1%E5%9E%8B/images/Fama-French_Five-Factor_Model_in_Deep_Learning.png" width="500" />
+  <figcaption>Deep Learning Network Architecture</figcaption>
+</figure>
+<h2 id="iii">III 深度神经网络的结构</h2>
+<figure>
+  <img alt="Image title" src="../../../../%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%89%B9%E5%BE%81%E5%9B%A0%E5%AD%90%E6%8E%92%E5%BA%8F%E6%A8%A1%E5%9E%8B/images/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84.png" width="500" />
+  <figcaption>Deep Learning Network Architecture</figcaption>
+</figure>
+<ul>
+<li>III.A 揭示如何在前馈神经网络对 <em>[inputs]</em> 公司特征进行降维</li>
+<li>III.B 计算多空投资组合(long-short portfolio)的权重</li>
+<li>III.C 计算 <em>[intermediate features]</em> 深度因子</li>
+<li>III.D 描述优化目标，总结完整的增强深度因子模型</li>
+</ul>
+<p>以时间 <span class="arithmatex">\(t\)</span> 为索引的典型训练观察包括以下数据类型：</p>
+<ul>
+<li><span class="arithmatex">\(\{r_{i,t}\}_{i=1}^N\)</span>，<span class="arithmatex">\(N\)</span> 只个股的超额回报</li>
+<li><span class="arithmatex">\(\{z_{k,i,t-1}:1\leq k \leq K_0\}_{i=1}^N\)</span>，<span class="arithmatex">\(N\)</span> 只个股的 <span class="arithmatex">\(K_0\)</span> 个滞后特征</li>
+<li><span class="arithmatex">\(\{f_{d,t}\}_{d=1}^{P_b}\)</span>，<span class="arithmatex">\(P_b\)</span> 个基准因子</li>
+</ul>
+<h2 id="iiia">III.A  深度特征</h2>
+<p>对原始数据的特征进行降维，神经网络的 asset <span class="arithmatex">\(i = 1,2,\dots,N\)</span> 
+和 <span class="arithmatex">\(l\)</span>-th 层的结构如下（原始输入 <em>[inputs]</em> 为 <span class="arithmatex">\(l = 0\)</span> 层）：</p>
+<div class="arithmatex">\[\begin{equation*}
+    \begin{split}
+        \mathbf{z}_{i,t-1}^{[l]} &amp; = F^{[l]}(A^{[l]}\mathbf{z}_{i,t-1}^{[l-1]} + b^{[l]}),\quad for \quad l = 1,2,\dots,L \\
+        \mathbf{z}_{i,t-1}^{[0]} &amp; := [z_{1,i,t-1},\dots,z_{K_0,i,t-1}]^\intercal,  
+    \end{split}
+\end{equation*}\]</div>
+<ul>
+<li><span class="arithmatex">\(\mathbf{z}_{i,t-1}^{[l]}\)</span>，<span class="arithmatex">\(K_l \times N\)</span> 矩阵 <span class="arithmatex">\(\mathbf{Z}_{t-1}^{[l]}\)</span> 的 <span class="arithmatex">\(i\)</span>-th 列</li>
+<li>单变量激活函数 <span class="arithmatex">\(F(\cdot) = tanh(\cdot)\)</span> 作用到矩阵的每一个元素上</li>
+<li>神经网络的权重 <span class="arithmatex">\(A\)</span> 和偏差 <span class="arithmatex">\(b\)</span> 是这部分需要被训练的参数</li>
+</ul>
+<div class="arithmatex">\[\{(A^{[l]}, b^{[l]}):A^{l}\in \mathbb{R}^{K_l \times K_{l-1}},b^{[l]}\in \mathbb{R}^{K_l}    \}_{l=1}^L \]</div>
+<p>与标准的深度神经网络结构不同，
+每个神经元都与前一层的所有神经元完全连接，
+这些变换是按列执行的，没有在不同的股票之间进行通信。
+此部分中执行的所有变换都在单只股票中进行。
+两个不同的股票的数据（和中间结果）是分开的，
+并且不相互干扰。
+这种设置允许特定个体股票的深层特征由其自身决定，
+而不是由其他股票决定。
+然后，根据深度特征对所有股票进行分类，
+收集不同股票的信息。
+实证研究发现，研究结果对激活函数的选择不敏感，
+而特征的组合和转化发挥着更重要的作用。
+这种多层结构总结了从原始特征到低维深度特征的信息。</p>
+<div class="arithmatex">\[\begin{align}
+    \mathbf{Y}_{t-1} &amp;:= \mathbf{Z}_{t-1}^{[L]}, \\
+    \mathbf{Z}_{t-1}^{[l]} &amp;:= F^{[l]}(A^{[l]}\mathbf{Z}_{t-1}^{[l-1]} + b^{[l]}),\quad for \quad l = 1,2,\dots,L\\
+    \mathbf{Z}_{t-1}^{[0]} &amp;:= \mathbf{Z}_{t-1}.
+\end{align}\]</div>
+<figure>
+  <img alt="Image title" src="../../../../%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%89%B9%E5%BE%81%E5%9B%A0%E5%AD%90%E6%8E%92%E5%BA%8F%E6%A8%A1%E5%9E%8B/images/Deep_Neural_Network.png" width="500" />
+  <figcaption>Deep Deep Neural Network of Characteristics </figcaption>
+</figure>
+<h2 id="iiib">III.B  排序和非线性权重</h2>
+<p>给定由公式（6）给出的深度学习结构得到的深度特征 <span class="arithmatex">\(\mathbf{Y}_{t-1}\)</span>，可以按以下方式构造的投资组合权重 <span class="arithmatex">\(\mathbf{W}_{t-1}\)</span>。</p>
+<p>定义 <span class="arithmatex">\(h^{[0]} : \mathbb{R}^N \rightarrow [-1,1]^N\)</span> 根据深度特征的排名来计算投资组合的权重。当变量为矩阵的时候，它作用到所有行上。
+让 <span class="arithmatex">\(\mathbb{y}_{t-1} = (y_1,\dots,y_N)\)</span> 为 <span class="arithmatex">\(N\times 1\)</span>向量，代表1个深度特征(<span class="arithmatex">\(\mathbf{Y}_{t-1}的一行\)</span>)
+权重为：</p>
+<div class="arithmatex">\[\begin{equation}
+    \begin{split}
+        \mathbf{W}_{t-1} = h^{[0]}(\mathbf{y}_{t-1}) &amp;= 
+            \begin{matrix}
+                \text{long portfolio} \\
+                \overbrace{\begin{bmatrix}
+                    \text{softmax}(y_1^+)\\
+                    \text{softmax}(y_2^+)\\
+                    \vdots \\
+                    \text{softmax}(y_N^+)
+                \end{bmatrix}}
+            \end{matrix}
+             - 
+             \begin{matrix}
+                \text{short portfolio} \\
+                \overbrace{\begin{bmatrix}
+                    \text{softmax}(y_1^-)\\
+                    \text{softmax}(y_2^-)\\
+                    \vdots \\
+                    \text{softmax}(y_N^-)
+                \end{bmatrix}}
+            \end{matrix},\\
+            \text{where} y^+ :&amp;= -50e^{-5y},\quad y^- := -50e^{5y},\\
+            \text{softmax}(y_i) &amp;=\frac{e^{y_i}}{\sum_{i=1}^{N}e^{y_i}}.
+    \end{split}
+\end{equation}\]</div>
+<figure>
+  <img alt="Image title" src="../../../../%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%89%B9%E5%BE%81%E5%9B%A0%E5%AD%90%E6%8E%92%E5%BA%8F%E6%A8%A1%E5%9E%8B/images/Comparison_Weight_vs_Rank.png" width="500" />
+  <figcaption>Comparison: Weight vs. Rank </figcaption>
+</figure>
+<p>III.A和III.B共同说明了从滞后特征 <span class="arithmatex">\(\mathbf{Z}_{t−1}\)</span> 到个体资产权重<span class="arithmatex">\(\mathbf{W}_{t-1}\)</span>的深度学习变换。为了简单起见，将该变换记为</p>
+<div class="arithmatex">\[\begin{equation}
+    \mathbf{W}_{t-1} = H(\mathbf{Z}_{t-1})
+\end{equation}\]</div>
+<h2 id="iiic-betas">III.C  深度因子和非线性动态betas</h2>
+<p>本小节继续构建基于long-short投资组合权重
+<span class="arithmatex">\(\mathbf{W}_{t-1}\)</span>的深度因子，
+然后构建一个用于资产定价的增强的深度因子模型。
+我们需要个股回报和相应的权重来创建long-short因子。
+该模型的第一个 <span class="arithmatex">\(L\)</span> 层生成深度特征。
+再接1层去生成投资组合权重<span class="arithmatex">\(\mathbf{W}_{t-1}\)</span>，如下：</p>
+<div class="arithmatex">\[\begin{equation}
+    \begin{split}
+        \mathbf{W}_{t-1} &amp; := \text{Input frome Equation(9)} \\
+        \mathbf{f}_{b,t} &amp; := \mathbf{W}_{t-1} \mathbf{r}_t \\
+        \widehat{r}_{i,t} &amp; := \boldsymbol{\beta}(\mathbf{z}_{i,t-1})^\intercal \mathbf{f}_t = \boldsymbol{\beta}_d(\mathbf{z}_{i,t-1})^\intercal \mathbf{f}_{d,t} + \boldsymbol{\beta}_b(\mathbf{z}_{i,t-1})^\intercal \mathbf{f}_{b,t}
+    \end{split}
+\end{equation}\]</div>
+<p>目前关于条件因子模型的文献主要采用了线性函数形式来表示公司特征上的贝塔系数。
+本框架提供了一种内部一致的beta建模。
+具体来说，假设beta遵循一个在同一组高维特征上的神经网络结构
+来训练深度特征。</p>
+<div class="arithmatex">\[\begin{equation}
+    [\boldsymbol{\beta}_d(\mathbf{z}_{i,t-1})^\intercal, \boldsymbol{\beta}_b(\mathbf{z}_{i,t-1})^\intercal]^\intercal = G(\mathbf{z}_{i,t-1})
+\end{equation}\]</div>
+<p>将beta神经网络与因子神经网络联合训练，
+最小化损失函数。</p>
+<h2 id="iiid">III.D  最小化损失函数</h2>
+<div class="arithmatex">\[\begin{equation}
+    \mathcal{L}_\lambda(\widehat{\Theta }) := \frac{1}{NT}\sum_{t=1}^{T}\sum_{i=1}^{N}(r_{i,t}-\widehat{r}_{i,t})^2 + \lambda\sum_{l=1}^{L-1}\sum_{i\neq j}|A_{i,j}^{[l]}|,
+\end{equation}\]</div>
+<ul>
+<li><span class="arithmatex">\(\widehat{\Theta }\)</span> 神经网络中所有参数</li>
+</ul>
+<div class="arithmatex">\[\begin{equation}
+    \begin{split}
+        &amp;\widehat{r}_{i,t} = \boldsymbol{\widehat{\beta}}_d(\mathbf{z}_{i,t-1})^\intercal \mathbf{f}_{d,t} + \boldsymbol{\widehat{\beta}}_b(\mathbf{z}_{i,t-1})^\intercal \mathbf{f}_{b,t}\\
+        &amp;[\boldsymbol{\widehat{\beta}}_d(\mathbf{z}_{i,t-1})^\intercal, \boldsymbol{\widehat{\beta}}_b(\mathbf{z}_{i,t-1})^\intercal]^\intercal = G(\mathbf{z}_{i,t-1})
+    \end{split}
+\end{equation}\]</div>
+<div class="arithmatex">\[\begin{equation}
+    \widehat{\Theta } = \text{arg min}\mathcal{L}_\lambda
+\end{equation}\]</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2016 - 2024 Zhengzihao
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.indexes"], "search": "../../../../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
