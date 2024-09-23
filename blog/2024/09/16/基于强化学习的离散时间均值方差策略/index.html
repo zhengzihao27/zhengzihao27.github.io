@@ -424,11 +424,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../category/reinforcement-learning/" class="md-nav__link">
+      <a href="../../../../category/git/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Reinforcement Learning
+    Git
   </span>
   
 
@@ -447,11 +447,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../category/git/" class="md-nav__link">
+      <a href="../../../../category/reinforcement-learning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    git
+    Reinforcement Learning
   </span>
   
 
@@ -564,6 +564,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="3. 离散时间算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 策略提升定理和策略收敛
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -629,7 +644,7 @@
                       <li class="md-nav__item">
                         <div class="md-nav__link">
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 13h1.5v2.82l2.44 1.41-.75 1.3L15 16.69zm4-5H5v11h4.67c-.43-.91-.67-1.93-.67-3a7 7 0 0 1 7-7c1.07 0 2.09.24 3 .67zM5 21a2 2 0 0 1-2-2V5c0-1.11.89-2 2-2h1V1h2v2h8V1h2v2h1a2 2 0 0 1 2 2v6.1c1.24 1.26 2 2.99 2 4.9a7 7 0 0 1-7 7c-1.91 0-3.64-.76-4.9-2zm11-9.85A4.85 4.85 0 0 0 11.15 16c0 2.68 2.17 4.85 4.85 4.85A4.85 4.85 0 0 0 20.85 16c0-2.68-2.17-4.85-4.85-4.85"/></svg>
-                          <time datetime="2024-09-18 00:00:00" class="md-ellipsis">September 18, 2024</time>
+                          <time datetime="2024-09-23 00:00:00" class="md-ellipsis">September 23, 2024</time>
                         </div>
                       </li>
                     
@@ -651,7 +666,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              3 min read
+                              4 min read
                             
                           </span>
                         </div>
@@ -762,7 +777,7 @@ finance. Mathematical Finance, 33(3):437–503.</p>
 \end{equation}\]</div>
 <p>where <span class="arithmatex">\(\rho_t = (r_f^{-1})^{T-t}\)</span>. Moreover, the optimal feedback control is Gaussian, with its density function given by</p>
 <div class="arithmatex">\[\begin{equation}
-    \pi^*(u;t,x,w) = \mathcal{N}\left(u \mid - \frac{ar_f(x-\rho_t w)}{a^2 + \sigma^2}, \frac{\lambda}{2(a^2 + \sigma^2)}\left( \frac{a^2 + \sigma^2}{\sigma^2 r_f^2} \right)^{T-t-1}\right).
+    \pi^*(u;t,x,w) = \mathcal{N}\left(u \,\Bigg| \, - \frac{ar_f(x-\rho_t w)}{a^2 + \sigma^2}, \frac{\lambda}{2(a^2 + \sigma^2)}\left( \frac{a^2 + \sigma^2}{\sigma^2 r_f^2} \right)^{T-t-1}\right) .
 \end{equation}\]</div>
 <hr />
 <p>[NOTE:超额收益 <span class="arithmatex">\(r_t\)</span> 服从一个均值为 <span class="arithmatex">\(a\)</span> 和方差 <span class="arithmatex">\(\sigma^2\)</span> 的分布。]</p>
@@ -775,6 +790,50 @@ finance. Mathematical Finance, 33(3):437–503.</p>
 </ol>
 </details>
 <h2 id="3">3. 离散时间算法</h2>
+<p>上述内容证明并给出了离散时间探索性均值-方差问题的最优解。接下来设计对应的RL算法来
+直接学习求解和输出投资组合分配策略。接下来要做的内容有两部分：</p>
+<ul>
+<li>1.策略提升定理和策略收敛</li>
+<li>2.一个自校正方案来学习真正的拉格朗日乘子 <span class="arithmatex">\(w\)</span> </li>
+</ul>
+<details class="注意">
+<summary>注意</summary>
+<p>该RL算法跳过了模型参数的估计，如超额回报 <span class="arithmatex">\(r_t\)</span> 的均值和方差，这些参数难以准确估计。</p>
+</details>
+<h3 id="31">3.1 策略提升定理和策略收敛</h3>
+<details class="为什么需要策略提升定理和策略收敛">
+<summary>为什么需要策略提升定理和策略收敛</summary>
+<p>策略改进方案可以向正确的方向更新当前策略，以改进 value function 。
+<strong>策略提升定理</strong>会保证迭代后的 value function 是非增的（在最小化的问题的情况下）。
+<strong>策略收敛</strong>保证会最终收敛到 optimal value function 。</p>
+</details>
+<hr />
+<p><strong>Theorem 2.</strong> Suppose <span class="arithmatex">\(w\in \mathbb{R}\)</span> is fixed and <span class="arithmatex">\(\boldsymbol{\pi}^0\)</span> is an arbitrarily given admissible feedback
+control policy, subjecting to</p>
+<div class="arithmatex">\[ 
+\pi_t^0(u;x,w) = \mathcal{N}\left( u \mid K(x-\rho_t w), \lambda BC^{T-t-1} \right)
+\]</div>
+<p>Then we can calculate <span class="arithmatex">\(J^{\pi^0}(t,x;w)\)</span>, where <span class="arithmatex">\(\rho_t = r_f^{-(T-t)}\)</span>, <span class="arithmatex">\(A=r_f^2 + (a^2 + \sigma^2)K^2 + 2r_f a K\)</span> and 
+<span class="arithmatex">\(f(t) = \frac{\lambda B (a^2 + \sigma^2)[1-(CA)^{T-t}]}{1-CA} - \frac{\lambda}{2}\ln (2\pi \lambda B)(T-t) - \frac{\lambda}{2}(T-t)-\frac{\lambda}{2}\ln C\sum_{i=0}^{T-t-1}i-(w-b)^2\)</span> 
+is a smooth function that only depends on T</p>
+<div class="arithmatex">\[\begin{equation*}
+    \begin{split}
+        &amp;J^{\pi^0}(t,x;w) \\
+        = &amp; A^{T-t}(x-\rho_t w)^2 + \frac{\lambda B (a^2 + \sigma^2)[1-(CA)^{T-t}]}{1-CA} - \frac{\lambda}{2}\ln (2\pi \lambda B)(T-t)\\
+        &amp; - \frac{\lambda}{2}(T-t)-\frac{\lambda}{2}\ln C\sum_{i=0}^{T-t-1}i-(w-b)^2 \\
+        = &amp; A^{T-t}(x-\rho_t w)^2 + f(t)
+    \end{split}
+\end{equation*}\]</div>
+<p>Using the condition 
+<span class="arithmatex">\(\pi_{t}^{k+1}(u ; x, w)=\arg \min _{\pi_{t}^{k}(u)} J^{\pi^{k}}(t, x ; w)\)</span>
+to update the feedback policy and making this iteration for k times, we can get 
+<span class="arithmatex">\(\pi_{t}^{k}(u ; x, w)\)</span> 
+and the corresponding value function
+<span class="arithmatex">\(J^{\pi^{k}}(t, x ; w):\)</span></p>
+<div class="arithmatex">\[\begin{equation}
+    \pi_{t}^{k}(u ; x, w)=\mathcal{N}\left(u \left\lvert\,-\frac{a r_{f}\left(x-\rho_{t} w\right)}{a^{2}+\sigma^{2}}\right., \frac{\lambda}{2\left(a^{2}+\sigma^{2}\right) A^{T-t-k}}\left(\frac{a^{2}+\sigma^{2}}{\sigma^{2} r_{f}^{2}}\right)^{k-1} \right),
+\end{equation}\]</div>
+<hr />
 
 
 
