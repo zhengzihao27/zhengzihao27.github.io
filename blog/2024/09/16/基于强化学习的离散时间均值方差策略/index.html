@@ -576,6 +576,30 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 算法设计
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 算法设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#policy-evaluation-pe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Policy Evaluation (PE)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -644,7 +668,7 @@
                       <li class="md-nav__item">
                         <div class="md-nav__link">
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 13h1.5v2.82l2.44 1.41-.75 1.3L15 16.69zm4-5H5v11h4.67c-.43-.91-.67-1.93-.67-3a7 7 0 0 1 7-7c1.07 0 2.09.24 3 .67zM5 21a2 2 0 0 1-2-2V5c0-1.11.89-2 2-2h1V1h2v2h8V1h2v2h1a2 2 0 0 1 2 2v6.1c1.24 1.26 2 2.99 2 4.9a7 7 0 0 1-7 7c-1.91 0-3.64-.76-4.9-2zm11-9.85A4.85 4.85 0 0 0 11.15 16c0 2.68 2.17 4.85 4.85 4.85A4.85 4.85 0 0 0 20.85 16c0-2.68-2.17-4.85-4.85-4.85"/></svg>
-                          <time datetime="2024-09-23 00:00:00" class="md-ellipsis">September 23, 2024</time>
+                          <time datetime="2024-09-24 00:00:00" class="md-ellipsis">September 24, 2024</time>
                         </div>
                       </li>
                     
@@ -666,7 +690,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              4 min read
+                              7 min read
                             
                           </span>
                         </div>
@@ -759,11 +783,11 @@ finance. Mathematical Finance, 33(3):437–503.</p>
 <p>问题(3)中理论的最优反馈控制和相应的最优值函数如下：</p>
 <p>定义在策略 <span class="arithmatex">\(\boldsymbol{\pi}\)</span> 下的值函数 <span class="arithmatex">\(J(t,x;w)\)</span>:</p>
 <div class="arithmatex">\[\begin{equation*}
-    J(t,x;w) = \mathbb{E}\left[(x_T^\pi - w)^2 + \lambda \sum_{s=t}^{T-1}\int_{\mathbb{R}}\pi_t(u)\ln\pi_t(u)du \mid x_t^\pi = x \right] - (w-b)^2
+    J(t,x;w) = \mathbb{E}\left[(x_T^\pi - w)^2 + \lambda \sum_{s=t}^{T-1}\int_{\mathbb{R}}\pi_s(u)\ln\pi_s(u)du \mid x_t^\pi = x \right] - (w-b)^2
 \end{equation*}\]</div>
 <p><span class="arithmatex">\(J^*(t,x;w)\)</span> 称为问题(3)的最优值函数：</p>
 <div class="arithmatex">\[\begin{align*}
-    &amp;J^*(t,x;w) = \min_{\pi_{t}, \ldots, \pi_{T-1}}\mathbb{E}\left[(x_T^\pi - w)^2 + \lambda \sum_{s=t}^{T-1}\int_{\mathbb{R}}\pi_t(u)\ln\pi_t(u)du \mid x_t^\pi = x \right] - (w-b)^2,\\
+    &amp;J^*(t,x;w) = \min_{\pi_{t}, \ldots, \pi_{T-1}}\mathbb{E}\left[(x_T^\pi - w)^2 + \lambda \sum_{s=t}^{T-1}\int_{\mathbb{R}}\pi_s(u)\ln\pi_s(u)du \mid x_t^\pi = x \right] - (w-b)^2,\\
     &amp;J^*(T,x;w) = (x-w)^2 - (w-b)^2.
 \end{align*}\]</div>
 <hr />
@@ -807,6 +831,7 @@ finance. Mathematical Finance, 33(3):437–503.</p>
 <strong>策略提升定理</strong>会保证迭代后的 value function 是非增的（在最小化的问题的情况下）。
 <strong>策略收敛</strong>保证会最终收敛到 optimal value function 。</p>
 </details>
+<p>以下给出的定理说明了，在固定 <span class="arithmatex">\(w\)</span> 和给定服从以下分布的最初的容许控制的情况下，最终策略会收敛到最优策略</p>
 <hr />
 <p><strong>Theorem 2.</strong> Suppose <span class="arithmatex">\(w\in \mathbb{R}\)</span> is fixed and <span class="arithmatex">\(\boldsymbol{\pi}^0\)</span> is an arbitrarily given admissible feedback
 control policy, subjecting to</p>
@@ -815,7 +840,7 @@ control policy, subjecting to</p>
 \]</div>
 <p>Then we can calculate <span class="arithmatex">\(J^{\pi^0}(t,x;w)\)</span>, where <span class="arithmatex">\(\rho_t = r_f^{-(T-t)}\)</span>, <span class="arithmatex">\(A=r_f^2 + (a^2 + \sigma^2)K^2 + 2r_f a K\)</span> and 
 <span class="arithmatex">\(f(t) = \frac{\lambda B (a^2 + \sigma^2)[1-(CA)^{T-t}]}{1-CA} - \frac{\lambda}{2}\ln (2\pi \lambda B)(T-t) - \frac{\lambda}{2}(T-t)-\frac{\lambda}{2}\ln C\sum_{i=0}^{T-t-1}i-(w-b)^2\)</span> 
-is a smooth function that only depends on T</p>
+is a smooth function that only depends on t</p>
 <div class="arithmatex">\[\begin{equation*}
     \begin{split}
         &amp;J^{\pi^0}(t,x;w) \\
@@ -833,7 +858,55 @@ and the corresponding value function
 <div class="arithmatex">\[\begin{equation}
     \pi_{t}^{k}(u ; x, w)=\mathcal{N}\left(u \left\lvert\,-\frac{a r_{f}\left(x-\rho_{t} w\right)}{a^{2}+\sigma^{2}}\right., \frac{\lambda}{2\left(a^{2}+\sigma^{2}\right) A^{T-t-k}}\left(\frac{a^{2}+\sigma^{2}}{\sigma^{2} r_{f}^{2}}\right)^{k-1} \right),
 \end{equation}\]</div>
+<div class="arithmatex">\[\begin{equation}
+    \begin{split}
+        &amp; J^{\pi^k}(t,x;w) \\
+        = &amp; A^{T-t-k}\left(\frac{\sigma^{2} r_{f}^{2}}{a^{2}+\sigma^{2}}\right)^{k}\left(x-\rho_{t} w\right)^{2}+\frac{\lambda}{2} k \ln \left(\frac{a^{2}+\sigma^{2}}{\pi \lambda}\right) \\
+        &amp; + \frac{\lambda}{2} \sum_{i=0}^{k-1} i \ln \left(\frac{\sigma^{2} r_{f}^{2}}{a^{2}+\sigma^{2}}\right) + \frac{\lambda \ln A}{2} k(T-t-k)+f(t+k).
+    \end{split}
+\end{equation}\]</div>
 <hr />
+<h3 id="32">3.2 算法设计</h3>
+<p>设计RL算法去求解离散时间探索性投资组合选择问题。算法包含三个步骤：策略评估(PE)，策略提升和学习 Lagrange multiplier <span class="arithmatex">\(w\)</span> 的自校正方案。</p>
+<h4 id="policy-evaluation-pe">Policy Evaluation (PE)</h4>
+<p>通过 Bellman equation 可以得到</p>
+<div class="arithmatex">\[ J^{\pi}(t, x ; w)=\mathbb{E}\left[J^{\pi}\left(t+1, x_{t+1} ; w\right)+\lambda \int_{\mathbb{R}} \pi_{t}(u) \ln \pi_{t}(u) d u \Bigg| x_{t}=x\right] \]</div>
+<p>将方程进行重排，得到</p>
+<div class="arithmatex">\[\mathbb{E}\left[J^{\pi}\left(t+1, x_{t+1} ; w\right)-J^{\pi}\left(t, x_{t} ; w\right)+\lambda \int_{\mathbb{R}} \pi_{t}(u) \ln \pi_{t}(u) d u \Bigg| x_{t}=x\right]=0 \]</div>
+<p>定义 Bellman's error</p>
+<div class="arithmatex">\[\delta_{t}=\hat{J}_{t}^{\pi}+\lambda \int_{\mathbb{R}} \pi_{t}(u) \ln \pi_{t}(u) d u \]</div>
+<p>其中 <span class="arithmatex">\(\hat{J}_{t}^{\pi}=J^{\pi}\left(t+1, x_{t+1} ; w\right)-J^{\pi}\left(t, x_{t} ; w\right)\)</span>.</p>
+<p>PE的目标是要最小化贝尔曼误差 <span class="arithmatex">\(\delta_t\)</span>. <img alt="❓" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/2753.svg" title=":question:" /></p>
+<ul>
+<li><span class="arithmatex">\(J^\theta\)</span> 参数化的 value function，<span class="arithmatex">\(\theta\)</span> 需要学习的参数化向量</li>
+<li><span class="arithmatex">\(\pi^\phi\)</span> 参数化的 policy，<span class="arithmatex">\(\phi\)</span> 需要学习的参数化向量</li>
+</ul>
+<p>然后最小化 </p>
+<div class="arithmatex">\[\begin{align*}
+    C(\theta, \phi) &amp; =\frac{1}{2} \mathbb{E}\left[\sum_{i=0}^{T-1}\left|\delta_{i}\right|^{2}\right] \\
+    &amp; =\frac{1}{2} \mathbb{E}\left[\sum_{i=0}^{T-1}\left|J^{\theta}\left(i+1, x_{i+1} ; w\right)-J^{\theta}\left(i, x_{i} ; w\right)+\lambda \int_{\mathbb{R}} \pi_{i}^{\phi}(u) \ln \pi_{i}^{\phi}(u) d u\right|^{2}\right] \\
+    &amp; =\frac{1}{2} \mathbb{E}\left[\sum_{i=0}^{T-1}\left|\hat{J}_{i}^{\theta}+\lambda \int_{\mathbb{R}} \pi_{i}^{\phi}(u) \ln \pi_{i}^{\phi}(u) d u\right|^{2}\right]
+\end{align*}\]</div>
+<p>其中 <span class="arithmatex">\(\pi^{\phi}=\left\{\pi_{t}^{\phi}, t=0,1, \ldots, T-1\right\}\)</span>. </p>
+<p>用以下方式收集样本 <span class="arithmatex">\(D=\{(t,x_t),t=0,1,\dots,T \}\)</span></p>
+<p><span class="arithmatex">\(t=0\)</span>，初始样本 <span class="arithmatex">\((0,x_0)\)</span></p>
+<p><span class="arithmatex">\(t=0,1,\dots,T-1\)</span>，采样 <span class="arithmatex">\(\pi_t^\phi\)</span> 获得在风险资产的分配 <span class="arithmatex">\(u_t\)</span>， 并且观察 <span class="arithmatex">\(t+1\)</span> 时刻的财富值 <span class="arithmatex">\(x_{t+1}\)</span></p>
+<p>通过以下方式去近似 <span class="arithmatex">\(C(\theta,\phi)\)</span></p>
+<div class="arithmatex">\[\begin{align*}
+    C(\theta, \phi) &amp; =\frac{1}{2} \sum_{\left(t, x_{t}\right) \in D}\left[J^{\theta}\left(t+1, x_{t+1} ; w\right)-J^{\theta}\left(t, x_{t} ; w\right)+\lambda \int_{\mathbb{R}} \pi_{t}^{\phi}(u) \ln \pi_{t}^{\phi}(u) d u\right]^{2} \\
+    &amp; =\frac{1}{2} \sum_{\left(t, x_{t}\right) \in D}\left[\hat{J}^{\theta}\left(t, x_{t} ; w\right)+\lambda \int_{\mathbb{R}} \pi_{t}^{\phi}(u) \ln \pi_{t}^{\phi}(u) d u\right]^{2}
+\end{align*}\]</div>
+<p>根据先前求出的最优值函数，我们可以考虑将值函数参数化为：</p>
+<div class="arithmatex">\[J^{\theta}(t, x ; w)=\theta_{1}^{T-t}\left(x-\rho_{t} w\right)^{2}+\theta_{2} t^{2}+\theta_{3} t+\theta_{4}, \]</div>
+<details class="recall optimal value function">
+<summary>Recall</summary>
+<div class="arithmatex">\[\begin{align*}
+        &amp;J^*(t,x;w) \\
+        =&amp;\left(\frac{\sigma^2 r_f^2}{a^2+\sigma^2}\right)^{T-t}(x-\rho_t w)^2 + \frac{\lambda}{2}(T-t)\ln\left(\frac{a^2 + \sigma^2}{\pi \lambda}\right) \\
+        &amp;+ \frac{\lambda}{2}\sum_{i=t+1}^{T}(T-i)\ln\left(\frac{\sigma^2 r_f^2}{a^2 + \sigma^2}\right) - (w-b)^2.
+\end{align*}\]</div>
+</details>
+<p>其中 <span class="arithmatex">\(\rho_t = r_f^{-(T-t)}\)</span> 和 <span class="arithmatex">\(r_f\)</span> 都是已知的。</p>
 
 
 
