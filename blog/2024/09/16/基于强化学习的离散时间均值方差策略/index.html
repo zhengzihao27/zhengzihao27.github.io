@@ -1135,11 +1135,11 @@ and the corresponding value function
 <p>利用上述得到的参数化形式的 <span class="arithmatex">\(H\left(\pi_{t}^{\phi}\right)=\phi_{1}+\phi_{2}(T-t-1)\)</span>，重写 <span class="arithmatex">\(C(\theta,\phi)\)</span> 得到</p>
 <div class="arithmatex">\[C(\theta, \phi)=\frac{1}{2} \sum_{\left(t, x_{t}\right) \in D}\left[\hat{J}^{\theta}\left(t, x_{t} ; w\right)-\lambda\left(\phi_{1}+\phi_{2}(T-t-1)\right)\right]^{2} \]</div>
 <p>该论文采用随机梯度下降（SGD）的方式去更新参数 <span class="arithmatex">\((\phi_1,\phi_2)'\)</span> 和 <span class="arithmatex">\((\theta_2,\theta_3)'\)</span></p>
-<p>注意到:</p>
-<ul>
-<li><span class="arithmatex">\(\hat{J}^{\theta}\left(t, x_{t} ; w\right)=J^{\theta}\left(t+1, x_{t+1} ; w\right)-J^{\theta}\left(t, x_{t} ; w\right)\)</span></li>
-<li><span class="arithmatex">\(J^{\theta}\left(t, x_{t} ; w\right)\)</span> 中的参数 <span class="arithmatex">\(\theta_{1}=e^{-2 \phi_{2}}\)</span>  </li>
-</ul>
+<div class="arithmatex">\[\begin{align*}
+    \textbf{Note that:} &amp; \\
+    &amp; \hat{J}^{\theta}\left(t, x_{t} ; w\right)=J^{\theta}\left(t+1, x_{t+1} ; w\right)-J^{\theta}\left(t, x_{t} ; w\right) \\
+    &amp; J^{\theta}\left(t, x_{t} ; w\right)\ 中的参数\ \theta_{1}=e^{-2 \phi_{2}}  &amp;
+\end{align*}\]</div>
 <div class="arithmatex">\[\begin{equation}
     \frac{\partial C}{\partial \theta_{2}}=\sum_{\left(t, x_{t}\right) \in D}\left[\hat{J}^{\theta}\left(t, x_{t} ; w\right)-\lambda\left(\phi_{1}+\phi_{2}(T-t-1)\right)\right]\left((t+1)^{2}-t^{2}\right),
 \end{equation}\]</div>
