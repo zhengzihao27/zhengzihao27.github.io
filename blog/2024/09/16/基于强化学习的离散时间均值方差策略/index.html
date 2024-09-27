@@ -768,8 +768,26 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#self-correcting-scheme" class="md-nav__link">
+    <span class="md-ellipsis">
+      Self-correcting Scheme
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.伪代码
+    </span>
+  </a>
   
 </li>
         
@@ -863,7 +881,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              8 min read
+                              10 min read
                             
                           </span>
                         </div>
@@ -887,7 +905,7 @@
 <p><strong>Key Words:</strong> </p>
 <!-- more -->
 
-<p><strong>Autor：</strong> Xiangyu Cui,∗, Xun Li, Yun Shi, Si Zhao</p>
+<p><strong>Autor：</strong> Xiangyu Cui, Xun Li, Yun Shi, Si Zhao</p>
 <p>[TODO]这篇综述可以看一看
 Hambly, B., Xu, R., and Yang, H. (2023). Recent advances in reinforcement learning in
 finance. Mathematical Finance, 33(3):437–503.</p>
@@ -1000,7 +1018,7 @@ finance. Mathematical Finance, 33(3):437–503.</p>
 <h3 id="31">3.1 策略提升定理和策略收敛</h3>
 <details class="为什么需要策略提升定理和策略收敛">
 <summary>为什么需要策略提升定理和策略收敛</summary>
-<p>策略改进方案可以向正确的方向更新当前策略，以改进 value function 。
+<p>策略方案可以向正确的方向更新当前策略，以改进 value function 。
 <strong>策略提升定理</strong>会保证迭代后的 value function 是非增的（在最小化的问题的情况下）。
 <strong>策略收敛</strong>保证会最终收敛到 optimal value function 。</p>
 </details>
@@ -1014,8 +1032,8 @@ control policy, subjecting to</p>
 <p>Then we can calculate <span class="arithmatex">\(J^{\pi^0}(t,x;w)\)</span></p>
 <div class="arithmatex">\[\begin{align*}
     \text{where} &amp;\\
-    &amp; \rho_t = r_f^{-(T-t)} \\
-    &amp; A=r_f^2 + (a^2 + \sigma^2)K^2 + 2r_f a K \\
+    &amp; \rho_t  = r_f^{-(T-t)} \\
+    &amp; A = r_f^2 + (a^2 + \sigma^2)K^2 + 2r_f a K \\
     &amp; f(t) = \frac{\lambda B (a^2 + \sigma^2)[1-(CA)^{T-t}]}{1-CA} - \frac{\lambda}{2}\ln (2\pi \lambda B)(T-t) - \frac{\lambda}{2}(T-t)-\frac{\lambda}{2}\ln C\sum_{i=0}^{T-t-1}i-(w-b)^2 
 \end{align*}\]</div>
 <p><span class="arithmatex">\(f(t)\)</span> is a smooth function that only depends on <span class="arithmatex">\(t\)</span></p>
@@ -1048,8 +1066,8 @@ and the corresponding value function
 <summary>Note</summary>
 <p>上述定理描述了以下迭代过程是合理的。即：</p>
 <p>&emsp; <strong>策略评估：</strong>给定当前策略 <span class="arithmatex">\(\pi^k\)</span> 计算其对应的值函数 <span class="arithmatex">\(J^{\pi^k}\)</span></p>
-<p>&emsp; <strong>策略改进：</strong>选择让 <span class="arithmatex">\(J^{\pi^k}\)</span> 最小化的策略分布：</p>
-<div class="arithmatex">\[\pi_{t}^{k+1}(u ; x, w)=\arg \min _{\pi_{t}^{0}(u)} J^{\pi^{k}}(t, x ; w) \]</div>
+<p>&emsp; <strong>策略提升：</strong>选择让 <span class="arithmatex">\(J^{\pi^k}\)</span> 最小化的策略分布：</p>
+<div class="arithmatex">\[\pi_{t}^{k+1}(u ; x, w)=\arg \min _{\pi_{t}^{k}(u)} J^{\pi^{k}}(t, x ; w) \]</div>
 <p>该定理证明了，该迭代过程，能够使更新后的策略能够收敛到理论最优策略。</p>
 </details>
 <h3 id="32">3.2 算法设计</h3>
@@ -1117,6 +1135,49 @@ and the corresponding value function
 <p>利用上述得到的参数化形式的 <span class="arithmatex">\(H\left(\pi_{t}^{\phi}\right)=\phi_{1}+\phi_{2}(T-t-1)\)</span>，重写 <span class="arithmatex">\(C(\theta,\phi)\)</span> 得到</p>
 <div class="arithmatex">\[C(\theta, \phi)=\frac{1}{2} \sum_{\left(t, x_{t}\right) \in D}\left[\hat{J}^{\theta}\left(t, x_{t} ; w\right)-\lambda\left(\phi_{1}+\phi_{2}(T-t-1)\right)\right]^{2} \]</div>
 <p>该论文采用随机梯度下降（SGD）的方式去更新参数 <span class="arithmatex">\((\phi_1,\phi_2)'\)</span> 和 <span class="arithmatex">\((\theta_2,\theta_3)'\)</span></p>
+<p>注意到:</p>
+<ul>
+<li><span class="arithmatex">\(\hat{J}^{\theta}\left(t, x_{t} ; w\right)=J^{\theta}\left(t+1, x_{t+1} ; w\right)-J^{\theta}\left(t, x_{t} ; w\right)\)</span></li>
+<li><span class="arithmatex">\(J^{\theta}\left(t, x_{t} ; w\right)\)</span> 中的参数 <span class="arithmatex">\(\theta_{1}=e^{-2 \phi_{2}}\)</span>  </li>
+</ul>
+<div class="arithmatex">\[\begin{equation}
+    \frac{\partial C}{\partial \theta_{2}}=\sum_{\left(t, x_{t}\right) \in D}\left[\hat{J}^{\theta}\left(t, x_{t} ; w\right)-\lambda\left(\phi_{1}+\phi_{2}(T-t-1)\right)\right]\left((t+1)^{2}-t^{2}\right),
+\end{equation}\]</div>
+<div class="arithmatex">\[\begin{equation}
+    \frac{\partial C}{\partial \theta_{3}}=\sum_{\left(t, x_{t}\right) \in D}\left[\hat{J}^{\theta}\left(t, x_{t} ; w\right)-\lambda\left(\phi_{1}+\phi_{2}(T-t-1)\right)\right],
+\end{equation}\]</div>
+<div class="arithmatex">\[\begin{equation}
+    \frac{\partial C}{\partial \phi_{1}}=-\lambda \sum_{\left(t, x_{t}\right) \in D}\left[\hat{J}^{\theta}\left(t, x_{t} ; w\right)-\lambda\left(\phi_{1}+\phi_{2}(T-t-1)\right)\right],
+\end{equation}\]</div>
+<div class="arithmatex">\[\begin{equation}
+    \begin{split}
+        \frac{\partial C}{\partial \phi_{2}}= &amp;\sum_{\left(t, x_{t}\right) \in D}\left[\hat{J}^{\theta}\left(t, x_{t} ; w\right)-\lambda\left(\phi_{1}+\phi_{2}(T-t-1)\right)\right] \times \\
+        &amp; \left[2(T-t) e^{-2 \phi_{2}(T-t)}\left(x_{t}-\rho_{t} w\right)^{2}\right. \\
+        &amp; \left.-2(T-t-1) e^{-2 \phi_{2}(T-t-1)}\left(x_{t+1}-\rho_{t+1} w\right)^{2}-\lambda(T-t-1)\right].
+    \end{split}
+\end{equation}\]</div>
+<p><span class="arithmatex">\(\theta_1\)</span> 根据 <span class="arithmatex">\(\theta_1 = e^{-2\phi_2}\)</span>，<span class="arithmatex">\(\theta_4\)</span> 则根据终值条件进行更新</p>
+<div class="arithmatex">\[\begin{align*}
+    J^{\theta}(T, x ; w) &amp;=\left(x- w\right)^{2}+\theta_{2} T^{2}+\theta_{3} T+\theta_{4} \\
+    &amp; =(x-w)^{2}-(w-b)^{2}
+\end{align*}\]</div>
+<p>换句话说 <span class="arithmatex">\((\theta_1,\theta4)\)</span> 的更新方案如下：</p>
+<ul>
+<li><span class="arithmatex">\(\theta_1 = e^{-2\phi_2}\)</span> </li>
+<li><span class="arithmatex">\(\theta_{4}=-\theta_{2} T^{2}-\theta_{3} T-(w-b)^{2}\)</span> </li>
+</ul>
+<h4 id="self-correcting-scheme">Self-correcting Scheme</h4>
+<div class="arithmatex">\[w_{n+1}=w_{n}-\alpha\left(x_{T}-b\right)\]</div>
+<p>其中 <span class="arithmatex">\(\alpha\)</span> 是拉格朗日乘子自校正的学习率。</p>
+<p>在实现过程中，将 <span class="arithmatex">\(x_T\)</span> 替换为样本均值 <span class="arithmatex">\(\frac{1}{N} \sum_{j} x_{T}^{j}\)</span></p>
+<ul>
+<li><span class="arithmatex">\(N\)</span> 是样本大小</li>
+<li><span class="arithmatex">\(\left\{x_{T}^{j}\right\}\)</span> 是 <span class="arithmatex">\(w\)</span> 更新后获得的最近 <span class="arithmatex">\(N\)</span> 个的终值财富值</li>
+</ul>
+<h3 id="4">4.伪代码</h3>
+<p><figure markdown="span">
+  <img alt="Image title" src="../../../../%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/1.%E5%9F%BA%E4%BA%8E%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%9D%87%E5%80%BC%E6%96%B9%E5%B7%AE%E7%AD%96%E7%95%A5/images/Algorithum_1.png" width="auto" />
+</figure></p>
 
 
 
