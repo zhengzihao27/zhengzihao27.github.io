@@ -703,6 +703,39 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="2.1 Setup:Markov decision processes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#infinite-time-horizon-and-discounted-reward" class="md-nav__link">
+    <span class="md-ellipsis">
+      Infinite time horizon and discounted reward.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finite-time-horizon" class="md-nav__link">
+    <span class="md-ellipsis">
+      Finite time horizon.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linear-mdps-and-linear-functional-approximation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linear MDPs and linear functional approximation.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -795,7 +828,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              1 min read
+                              5 min read
                             
                           </span>
                         </div>
@@ -822,6 +855,159 @@
 <p><strong>Autor：</strong> Ben Hambly, Renyuan Xu, Huining Yang</p>
 <h2 id="2">2.强化学习基础</h2>
 <h3 id="21-setupmarkov-decision-processes">2.1 Setup:Markov decision processes</h3>
+<p>投资组合优化问题，通常有两类问题，一类是无限时间范围的马尔科夫决策过程(MDPs, Markov decision processes)，另一类则是有限时间范围的MDPs。前者主要研究长期投资策略，如养老金问题。而后者主要研究短期内的交易，如资产购买或清算的最优执行问题，如果目标金额没有被完全执行，则可能会在终止时间收到处罚。</p>
+<h4 id="infinite-time-horizon-and-discounted-reward"><em>Infinite time horizon and discounted reward.</em></h4>
+<p>首先考虑无<strong>限时间范围和折扣奖励的</strong>的<strong>离散时间MDP</strong>。</p>
+<ul>
+<li>状态空间 <span class="arithmatex">\(\mathcal{S}\)</span>，Markov process取值的空间</li>
+<li>动作集合 <span class="arithmatex">\(\mathcal{A}\)</span>，通过在集合中采取动作影响演化</li>
+<li>目的是通过选择一个策略（沿着时间的行动顺序）来优化系统的预期回报。</li>
+</ul>
+<p>通过定义值函数来数学的表示这一点</p>
+<p>Define value function <span class="arithmatex">\(V^*\)</span> for each <span class="arithmatex">\(s \in \mathcal{S}\)</span> to be</p>
+<div class="arithmatex">\[\begin{equation}
+    V^{*}(s)=\sup _{\Pi} V^{\Pi}(s):=\sup _{\Pi} \mathbb{E}^{\Pi}\left[\sum_{t=0}^{\infty} \gamma^{t} r\left(s_{t}, a_{t}\right) \mid s_{0}=s\right],
+\end{equation}\]</div>
+<p>subject to</p>
+<div class="arithmatex">\[\begin{equation}
+    s_{t+1} \sim P\left(s_{t}, a_{t}\right), \quad a_{t} \sim \pi_{t}\left(s_{t}\right) .
+\end{equation}\]</div>
+<p>以下做一些记号上的约定：</p>
+<ul>
+<li><span class="arithmatex">\(\mathbb{E}^{\Pi}\)</span> 表示在策略 <span class="arithmatex">\({\Pi}\)</span> 下的期望，其中概率测度 <span class="arithmatex">\(\mathcal{P}\)</span> 描述MDP中的动态和奖励。</li>
+<li>一个空间 <span class="arithmatex">\(\mathcal{X}\)</span> 的概率测度写为 <span class="arithmatex">\(\mathcal{P}(\mathcal{X})\)</span> </li>
+<li>状态空间 <span class="arithmatex">\((\mathcal{S},d_\mathcal{S})\)</span> 和动作空间 <span class="arithmatex">\((\mathcal{A},d_\mathcal{A})\)</span> 都是完全可分的度量空间，包括 <span class="arithmatex">\(\mathcal{S}\)</span> 和 <span class="arithmatex">\(\mathcal{A}\)</span> 都是有限的情况，这在RL文献中常见。</li>
+<li><span class="arithmatex">\(\gamma \in (0,1)\)</span> 是一个折现因子</li>
+<li><span class="arithmatex">\(s_t \in \mathcal{S}\)</span>：<span class="arithmatex">\(t\)</span> 时刻的状态</li>
+<li><span class="arithmatex">\(a_t \in \mathcal{A}\)</span>：<span class="arithmatex">\(t\)</span> 时刻的动作</li>
+<li><span class="arithmatex">\(P: S \times \mathcal{A} \rightarrow \mathcal{P}(S)\)</span> 马尔可夫过程下的转移函数</li>
+<li>记号 <span class="arithmatex">\(s_{t+1} \sim P\left(s_{t}, a_{t}\right)\)</span> 表示 <span class="arithmatex">\(s_{t+1}\)</span> 从分布 <span class="arithmatex">\(P(s_t,a_t)\in \mathcal{P}(\mathcal{S})\)</span> 中进行采样。</li>
+<li>奖励 <span class="arithmatex">\(r(s,a)\)</span> 是每对<span class="arithmatex">\((s,a)\in \mathcal{S}\times \mathcal{A}\)</span> 的 <span class="arithmatex">\(\mathbb{R}\)</span> 中的一个随机变量</li>
+<li>
+<dl>
+<dt>策略 <span class="arithmatex">\(\Pi=\left\{\pi_{t}\right\}_{t=0}^{\infty}\)</span> 是马尔可夫的，因为它只依赖于当前状态，并且可以确定性的，也可以是随机的。</dt>
+<dd>
+<ul>
+<li>对于确定性的策略，<span class="arithmatex">\(\pi_{t}: S \rightarrow \mathcal{A}\)</span> 将当前状态 <span class="arithmatex">\(s_t\)</span> 映射到一个确定性的动作</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li>对于随机策略，<span class="arithmatex">\(\pi_{t}: S \rightarrow \mathcal{P}(\mathcal{A})\)</span> 将当前状态 <span class="arithmatex">\(s_t\)</span> 映射到一个动作空间上的分布。</li>
+</ul>
+</dd>
+<dd>
+<p>&emsp;&emsp;&emsp; <span class="arithmatex">\(\pi_t(s)\in\mathcal{P}(\mathcal{A})\)</span> 表示给定状态 <span class="arithmatex">\(s\)</span> 在行动空间上的分布</p>
+</dd>
+<dd>
+<p>&emsp;&emsp;&emsp; <span class="arithmatex">\(\pi_t(s,a)\)</span> 表示在状态 <span class="arithmatex">\(s\)</span> 采取动作 <span class="arithmatex">\(a\)</span> 的概率</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>在带有无限时间范围情况下，假设奖励 <span class="arithmatex">\(r\)</span> 和转移动态 <span class="arithmatex">\(P\)</span> 是时间齐次的，
+这在马尔可夫决策过程文献中是一个标准假设。
+此外，如果考虑最小化成本而不是最大化奖励，问题的设置本质上是相同的。</p>
+<p>著名的动态规划原则(dynamic programming principle, DPP)，
+即最优策略可以通过最大化一步的奖励然后从新的状态进行最优化处理，
+可以用来推导值函数(1)的贝尔曼方程</p>
+<div class="arithmatex">\[\begin{equation}
+    V^{*}(s)=\sup _{a \in \mathcal{A}}\left\{\mathbb{E}[r(s, a)]+\gamma \mathbb{E}_{s^{\prime} \sim P(s, a)}\left[V^{*}\left(s^{\prime}\right)\right]\right\} .
+\end{equation}\]</div>
+<p>可以将值函数写成</p>
+<div class="arithmatex">\[V^{*}(s)=\sup _{a \in \mathcal{A}} Q^{*}(s, a) ,\]</div>
+<p>其中，<span class="arithmatex">\(Q\)</span>-function，用于RL的基本量之一，定义如下</p>
+<div class="arithmatex">\[\begin{equation}
+    Q^{*}(s, a)=\mathbb{E}[r(s, a)]+\gamma \mathbb{E}_{s^{\prime} \sim P(s, a)}\left[V^{*}\left(s^{\prime}\right)\right],
+\end{equation}\]</div>
+<p>在状态 <span class="arithmatex">\(s\)</span> 下采取动作 <span class="arithmatex">\(a\)</span> 的预期奖励，后再采取最优化策略。
+对于 <span class="arithmatex">\(Q\)</span>-function，也有贝尔曼方程，如下：</p>
+<div class="arithmatex">\[\begin{equation}
+    Q^{*}(s, a)=\mathbb{E}[r(s, a)]+\gamma \mathbb{E}_{s^{\prime} \sim P(s, a)} \sup _{a^{\prime} \in \mathcal{A}} Q^{*}\left(s^{\prime}, a^{\prime}\right) .
+\end{equation}\]</div>
+<p>这使我们能够从 <span class="arithmatex">\(Q(s,a)\)</span> 中提取最优（平稳）策略
+<span class="arithmatex">\(\pi^*(s,a)\)</span>（如果存在的话），具体为</p>
+<div class="arithmatex">\[\pi^{*}(s, a) \in \arg \max _{a \in \mathcal{A}} Q(s, a) .\]</div>
+<p>此处的无限时间范围采取的折现奖励的设置，还有另一种设置是平均奖励，也被称为遍历式奖励，这种遍历式的设置通常与金融应用不相关。</p>
+<h4 id="finite-time-horizon"><em>Finite time horizon.</em></h4>
+<p>有限时间范围 <span class="arithmatex">\(T&lt;\infty\)</span> ，不再贴现未来的价值并且有一个终止奖励。有限时间范围的MDP问题可以表示如下：</p>
+<div class="arithmatex">\[\begin{equation}
+    V_{t}^{*}(s)=\sup _{\Pi} V_{t}^{\Pi}(s):=\sup _{\Pi} \mathbb{E}^{\Pi}\left[\sum_{u=t}^{T-1} r_{u}\left(s_{u}, a_{u}\right)+r_{T}\left(s_{T}\right) \Bigg| s_{t}=s\right], \forall s \in \mathcal{S},
+\end{equation}\]</div>
+<p>subject to</p>
+<div class="arithmatex">\[\begin{equation}
+    s_{u+1} \sim P_{u}\left(s_{u}, a_{u}\right), \quad a_{u} \sim \pi_{u}\left(s_{u}\right), \quad t \leq u \leq T-1.
+\end{equation}\]</div>
+<p>在无限时间情况的例子中，我们用 <span class="arithmatex">\(s_u\in \mathcal{S}\)</span> 和 <span class="arithmatex">\(a_u\in \mathcal{A}\)</span> 表示 agent 在时间 <span class="arithmatex">\(u\)</span> 的状态和动作。
+然而，有限时间与无限时间有一点不同的是，我们允许时间依赖性的转移和奖励函数。</p>
+<ul>
+<li><span class="arithmatex">\(P_{u}: S \times \mathcal{A} \rightarrow \mathcal{P}(S)\)</span> 表示转移函数</li>
+<li><span class="arithmatex">\(r_u(s,a)\)</span> 对每一对<span class="arithmatex">\((s,a)\in \mathcal{S}\times \mathcal{A}\)</span> 是一个实值的随机变量，<span class="arithmatex">\(t\leq u \leq T-1\)</span></li>
+<li><span class="arithmatex">\(r_T(s)\)</span> 终端奖励，对所有的 <span class="arithmatex">\(s\in\mathcal{S}\)</span> 是一个实值随机变量</li>
+<li><span class="arithmatex">\(\Pi=\left\{\pi_{u}\right\}_{t=0}^{T}\)</span> 马尔可夫策略可以是确定性的也可以是随机的</li>
+</ul>
+<p>值函数(6)对应的贝尔曼方程定义如下：</p>
+<div class="arithmatex">\[\begin{equation}
+    \begin{split}
+        V_{t}^{*}(s) &amp;=\sup _{a \in \mathcal{A}}\left\{\mathbb{E}\left[r_{t}(s, a)\right]+\mathbb{E}_{s^{\prime} \sim P_{t}(s, a)}\left[V_{t+1}^{*}\left(s^{\prime}\right)\right]\right\}, \\
+        V_{T}^{*}(s) &amp;=\mathbb{E}\left[r_{T}(s)\right]\ \ \ \ \text{(terminal condition)}
+    \end{split}
+\end{equation}\]</div>
+<p>可以将值函数写成</p>
+<div class="arithmatex">\[V_{t}^{*}(s)=\sup _{a \in \mathcal{A}} Q_{t}^{*}(s, a),\]</div>
+<p>其中 <span class="arithmatex">\(Q_t^*\)</span> 函数定义如下：</p>
+<div class="arithmatex">\[\begin{equation}
+    Q_{t}^{*}(s, a)=\mathbb{E}\left[r_{t}(s, a)\right]+\mathbb{E}_{s^{\prime} \sim P_{t}(s, a)}\left[V_{t}^{*}\left(s^{\prime}\right)\right].
+\end{equation}\]</div>
+<p><span class="arithmatex">\(Q\)</span>-function 的贝尔曼方程由下式给出</p>
+<div class="arithmatex">\[\begin{equation}
+    \begin{split}
+        Q_{t}^{*}(s, a) &amp;=\mathbb{E}\left[r_{t}(s, a)\right]+\mathbb{E}_{s^{\prime} \sim P_{t}(s, a)}\left[\sup _{a^{\prime} \in \mathcal{A}} Q_{t+1}^{*}\left(s^{\prime}, a^{\prime}\right)\right],\\
+        Q_{T}^{*}(s, a) &amp;=\mathbb{E}\left[r_{T}(s)\right]\ \ \ \ \text{for all } a \in \mathcal{A}
+    \end{split}
+\end{equation}\]</div>
+<details class="note">
+<summary>Note</summary>
+<p>金融时间序列数据通常是非平稳的，因此(6)和(7)式中的时间变化转移核和价格函数对于金融应用尤为重要。</p>
+</details>
+<p>对于一个具有有限状态和动作空间以及有限奖励 <span class="arithmatex">\(r\)</span> 的无限时间范围的马尔可夫决策过程（MDP），
+一个进一步有用的观察是，只要存在最优策略，该MDP总是具有一个平稳的最优策略。</p>
+<hr />
+<p><strong>Theorem 2.1</strong> Theorem 6.2.7 in Puterman (2014). Assume <span class="arithmatex">\(|\mathcal{A}|&lt;\infty\)</span>, 
+<span class="arithmatex">\(|\mathcal{S}|&lt;\infty\)</span>, and <span class="arithmatex">\(|r|&lt;\infty\)</span> with
+probability one. For any infinite horizon discounted MDP, 
+there always exists a deterministic stationary policy that is optimal.</p>
+<hr />
+<p>定理 2.1 意味着总是存在一个固定的策略，可以在每个时间步长执行该策略指定的操作最大化折扣奖励。
+angent 不需要随时间改变策略。平均奖励的情况也有一个类似的结果，见 Theorem 8.1.2 in Puterman (2014).</p>
+<p>这种洞察将寻找最优顺序决策策略问题减少到寻找最优平稳策略的问题。因此，记 <span class="arithmatex">\(\pi: S \rightarrow \mathcal{P}(\mathcal{A})\)</span> (没有时间指数) 为一个平稳策略。</p>
+<h4 id="linear-mdps-and-linear-functional-approximation"><em>Linear MDPs and linear functional approximation.</em></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>在线性马尔可夫决策过程（MDP）中，转移核（transition kernels）和奖励函数（reward function）被假设为相对于某些特征映射是线性的（Bradtke &amp; Barto, 1996；Melo &amp; Ribeiro, 2007）。</p>
+</div>
+<p>在<strong>无限时间范围的背景</strong>下，若存在 <span class="arithmatex">\(d\)</span> 个在 <span class="arithmatex">\(\mathcal{S}\)</span> 上未知(符号)测度 <span class="arithmatex">\(\mu=\left(\mu^{(1)}, \ldots, \mu^{(d)}\right)\)</span> ，以及一个未知的向量 <span class="arithmatex">\(\theta\in\mathbb{R}^d\)</span>，满足对任意的 <span class="arithmatex">\((s,a)\in \mathcal{S}\times\mathcal{A}\)</span>，有</p>
+<div class="arithmatex">\[\begin{equation}
+    P(\cdot \mid s, a)=\langle\phi(s, a), \mu(\cdot)\rangle, \quad r(s, a)=\langle\phi(s, a), \theta\rangle .
+\end{equation}\]</div>
+<p>则称该MDP为具有特征映射的特征映射 <span class="arithmatex">\(\phi:\mathcal{S}  \times \mathcal{A} \rightarrow \mathbb{R}^{d}\)</span> 的<strong>线性MDP</strong>。</p>
+<p>与之相似，在<strong>有限时间背景</strong>下，若对于任意的 <span class="arithmatex">\(0\leq t \leq T\)</span>，存在 <span class="arithmatex">\(d\)</span> 个在 <span class="arithmatex">\(\mathcal{S}\)</span>上的 未知(符号)测度 <span class="arithmatex">\(\mu_{t}=\left(\mu_{t}^{(1)}, \ldots, \mu_{t}^{(d)}\right)\)</span>
+以及一个未知的向量 <span class="arithmatex">\(\theta_t \in\mathbb{R}^d\)</span>，
+满足对任意的 <span class="arithmatex">\((s,a)\in \mathcal{S}\times\mathcal{A}\)</span>，有</p>
+<div class="arithmatex">\[\begin{equation}
+    P_{t}(\cdot \mid s, a)=\left\langle\phi(s, a), \mu_{t}(\cdot)\right\rangle, \quad r_{t}(s, a)=\left\langle\phi(s, a), \theta_{t}\right\rangle
+\end{equation}\]</div>
+<p>则称该MDP为具有特征映射的特征映射 <span class="arithmatex">\(\phi:\mathcal{S}  \times \mathcal{A} \rightarrow \mathbb{R}^{d}\)</span> 的<strong>线性MDP</strong>。</p>
+<p>通常假设这些特征(features)是 agent 已知且有界的，也就是说 <span class="arithmatex">\(\|\phi(s, a)\| \leq 1\)</span> 对所有的 <span class="arithmatex">\((s,a)\in\mathcal{S}\times\mathcal{A}\)</span>。</p>
+<p>线性MDP框架与具有线性泛函逼近的RL的文献密切相关，其中的值函数假设为形式</p>
+<p>For the infinite horizon case,</p>
+<div class="arithmatex">\[\begin{equation}
+    Q(s, a)=\langle\psi(s, a), \omega\rangle, \quad V(s)=\langle\xi(s), \eta\rangle
+\end{equation}\]</div>
+<p>For the finite horizon case,</p>
+<div class="arithmatex">\[\begin{equation}
+    Q_{t}(s, a)=\left\langle\psi(s, a), \omega_{t}\right\rangle, \quad V_{t}(s)=\left\langle\xi(s), \eta_{t}\right\rangle, \forall 0 \leq t \leq T
+\end{equation}\]</div>
 
 
 
