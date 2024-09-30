@@ -99,6 +99,8 @@
       
     
     
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -396,6 +398,8 @@
         
       
       
+        
+      
     
     
     <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
@@ -448,9 +452,14 @@
     
       
       
+        
+          
+          
+        
+      
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
@@ -459,7 +468,7 @@
         <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
         
           
-          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -527,9 +536,14 @@
     
       
       
+        
+          
+          
+        
+      
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
@@ -538,7 +552,7 @@
         <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
         
           
-          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -698,6 +712,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#conda" class="md-nav__link">
+    <span class="md-ellipsis">
+      conda
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       中文搜索支持
@@ -729,6 +752,15 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       辅助资料
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      python
     </span>
   </a>
   
@@ -824,7 +856,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              1 min read
+                              2 min read
                             
                           </span>
                         </div>
@@ -871,10 +903,14 @@ git commit -m “gitignore working”
 git push --force origin main    // 本地覆盖远程仓库
 
 git init // 在目录中创建新的 本地 Git 仓库
-
+</code></pre></div>
+<h2 id="conda">conda</h2>
+<div class="language-text highlight"><pre><span></span><code>// 清华源
 https://pypi.tuna.tsinghua.edu.cn/simple
 
-windows
+pip install 第三方库的名称 -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+//windows powershell
 
 conda search cudatoolkit --info
 conda search cudnn --info
@@ -884,6 +920,68 @@ conda install cudnn
 
 pip3 uninstall urllib3
 pip install urllib3==1.23 -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+// wsl
+nvidia-smi ，看到显卡当前的状态例如温度、显存占用情况等
+watch -n 1 nvidia-smi # 1表示每1秒刷新一次
+
+source ~/.bashrc   使用代码，激活conda
+
+// 删除ubuntu子系统
+wsl --unregister Ubuntu-22.04.4 LTS
+
+conda --version
+conda activate
+conda deactivate
+
+conda create -n 虚拟环境名称 python=3.10
+conda activate 虚拟环境名称
+conda info --env
+
+conda env list
+conda env remove -n &lt;虚拟环境名称&gt;
+
+exit()或quit()
+
+
+// 使用 VSCode 打开当前路径的📂文件夹
+code ./
+
+
+// 删除文件夹    
+rm 文件夹
+rm -rf /root/logs/game
+
+
+powershell
+1.当前目录下
+  新建文件
+    New-item 1（文件名）.doc（文件类型后缀doc\txt等）
+    New-item  1.doc
+  删除文件
+    remove-item空格1（文件名）.doc（文件类型后缀doc\txt等）
+    remove-item  1.doc
+  对文件添加内容
+    Set-content 空格1.txt（文件名+后缀）空格-value空格”123（内容）”
+    Set-content  1.txt  -value  “123”
+  在文件中加内容
+    add-content空格1.txt(文件名+后缀)空格-value 空格&quot;123”（要添加的内容）
+    add-content   1.doc  -value  “123”
+  删除文件内容
+    Clear-content空格1.txt（文件名）
+    Clear-content  1.txt
+  打开创建的文件
+    .\1.txt
+    .\文件名+后缀
+
+2.在其他目录
+
+
+WSL 访问 Windows 文件时，可以直接使用/mnt/{Windows盘符}
+ls：列出当前目录中的文件和子目录
+pwd 当前路径
+
+运行python文件 python main.py
 </code></pre></div>
 <h2 id="_1">中文搜索支持</h2>
 <h3 id="_2">配置</h3>
@@ -896,6 +994,8 @@ pip install urllib3==1.23 -i https://pypi.tuna.tsinghua.edu.cn/simple
 </code></pre></div>
 <h3 id="_3">辅助资料</h3>
 <p>https://www.runoob.com/git/git-branch.html</p>
+<h3 id="python">python</h3>
+<p>生成 requirements.txt 文件</p>
 
 
 
@@ -918,6 +1018,8 @@ pip install urllib3==1.23 -i https://pypi.tuna.tsinghua.edu.cn/simple
   </div>
 
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
@@ -953,7 +1055,7 @@ pip install urllib3==1.23 -i https://pypi.tuna.tsinghua.edu.cn/simple
       <div class="md-progress" data-md-component="progress" role="progressbar"></div>
     
     
-    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.tabs", "navigation.expand"], "search": "../../../../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.tabs", "navigation.expand", "navigation.sections", "content.tabs.link", "content.code.copy", "content.code.select", "content.tooltips"], "search": "../../../../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../../../../../assets/javascripts/bundle.56dfad97.min.js"></script>
