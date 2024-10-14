@@ -15,8 +15,10 @@
         <link rel="canonical" href="https://zhengzihao1998.github.io./blog/2024/09/30/games002-notes/">
       
       
-        <link rel="prev" href="../../27/%E9%87%91%E8%9E%8D%E9%A2%86%E5%9F%9F%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%9C%80%E6%96%B0%E8%BF%9B%E5%B1%95/">
+        <link rel="prev" href="../%E9%87%91%E8%9E%8D%E9%A2%86%E5%9F%9F%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%9C%80%E6%96%B0%E8%BF%9B%E5%B1%95/">
       
+      
+        <link rel="next" href="./">
       
       
       <link rel="icon" href="../../../../../assets/images/favicon.png">
@@ -125,7 +127,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#linux-shell" class="md-skip">
+        <a href="#windows-cmd-powershell" class="md-skip">
           Skip to content
         </a>
       
@@ -710,46 +712,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#why" class="md-nav__link">
+  <a href="#cmd" class="md-nav__link">
     <span class="md-ellipsis">
-      Why
+      CMD常用命令
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      How
+      账户权限
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="How">
+    <nav class="md-nav" aria-label="账户权限">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#shell" class="md-nav__link">
+  <a href="#reference" class="md-nav__link">
     <span class="md-ellipsis">
-      打开Shell
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      常用命令
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#linux" class="md-nav__link">
-    <span class="md-ellipsis">
-      Linux中的路径
+      Reference
     </span>
   </a>
   
@@ -823,7 +807,7 @@
                       <li class="md-nav__item">
                         <div class="md-nav__link">
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 13h1.5v2.82l2.44 1.41-.75 1.3L15 16.69zm4-5H5v11h4.67c-.43-.91-.67-1.93-.67-3a7 7 0 0 1 7-7c1.07 0 2.09.24 3 .67zM5 21a2 2 0 0 1-2-2V5c0-1.11.89-2 2-2h1V1h2v2h8V1h2v2h1a2 2 0 0 1 2 2v6.1c1.24 1.26 2 2.99 2 4.9a7 7 0 0 1-7 7c-1.91 0-3.64-.76-4.9-2zm11-9.85A4.85 4.85 0 0 0 11.15 16c0 2.68 2.17 4.85 4.85 4.85A4.85 4.85 0 0 0 20.85 16c0-2.68-2.17-4.85-4.85-4.85"/></svg>
-                          <time datetime="2024-09-30 00:00:00" class="md-ellipsis">September 30, 2024</time>
+                          <time datetime="2024-10-09 00:00:00" class="md-ellipsis">October 9, 2024</time>
                         </div>
                       </li>
                     
@@ -865,149 +849,105 @@
         
 
 
-<h1 id="linux-shell">Linux + Shell</h1>
+<h1 id="windows-cmd-powershell">Windows + CMD + PowerShell</h1>
 <p>Games002-Notes</p>
 <!-- more -->
 
 <h2 id="what">What</h2>
-<p>Linux 是一群开源的、基于 Linux 内核的类 Unix 操作系统集合。</p>
-<h2 id="why">Why</h2>
-<dl>
-<dt><strong>优点：</strong></dt>
-<dd>方便的包管理<br />
-<em> 开源<br />
-</em> 快而稳定<br />
-<em> 功能齐全<br />
-</em> ...</dd>
-<dt><strong>应用场景：</strong></dt>
-<dd>远程服务器<br />
-<em> 仿真环境<br />
-</em> OS，网络等领域  </dd>
-</dl>
-<h2 id="how">How</h2>
-<p>以下三种方式选一种即可访问Linux  </p>
-<ol>
-<li>安装Linux系统<a href="https://zhuanlan.zhihu.com/p/294033435">知乎</a>  </li>
-<li>使用WSL<a href="https://learn.microsoft.com/zh-cn/windows/wsl/install">官方文档</a>  </li>
-<li>使用虚拟机</li>
-</ol>
-<h3 id="shell">打开Shell</h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Ubuntu</label><label for="__tabbed_1_2">Windows</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Ctrl + Alt + T
-</span></code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>PowerShell 中键入 wsl 后回车
-</span></code></pre></div>
-</div>
-</div>
-</div>
-<h3 id="_1">常用命令</h3>
+<p>Windows 是一组由微软开发、经营、销售的图形化操作系统家族。</p>
+<h2 id="cmd">CMD常用命令</h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: center;">命令</th>
-<th style="text-align: center;">功能</th>
-<th style="text-align: center;">命令</th>
-<th style="text-align: center;">功能</th>
+<th>CMD 命令</th>
+<th>功能</th>
+<th>Linux Shell 命令</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: center;"><code>date</code></td>
-<td style="text-align: center;">显示时间</td>
-<td style="text-align: center;"><code>rm</code></td>
-<td style="text-align: center;">删除</td>
+<td><code>help</code></td>
+<td>查看帮助文档</td>
+<td><code>man</code></td>
 </tr>
 <tr>
-<td style="text-align: center;"><code>shutdown -h now</code></td>
-<td style="text-align: center;">关闭系统</td>
-<td style="text-align: center;"><code>mv</code></td>
-<td style="text-align: center;">移动、重命名</td>
+<td><code>cls</code></td>
+<td>清屏</td>
+<td><code>clear</code></td>
 </tr>
 <tr>
-<td style="text-align: center;"><code>man</code></td>
-<td style="text-align: center;">查看帮助文档</td>
-<td style="text-align: center;"><code>cp</code></td>
-<td style="text-align: center;">复制</td>
+<td><code>echo</code></td>
+<td>显示消息</td>
+<td><code>echo</code></td>
 </tr>
 <tr>
-<td style="text-align: center;"><code>cat</code></td>
-<td style="text-align: center;">显示文件内容</td>
-<td style="text-align: center;"><code>touch</code></td>
-<td style="text-align: center;">新建文件</td>
+<td><code>cd</code></td>
+<td>切换当前路径</td>
+<td><code>cd</code></td>
 </tr>
 <tr>
-<td style="text-align: center;"><code>cd</code></td>
-<td style="text-align: center;">切换当前路径</td>
-<td style="text-align: center;"><code>ln</code></td>
-<td style="text-align: center;">链接</td>
+<td><code>del</code>/<code>erase</code></td>
+<td>删除</td>
+<td><code>rm</code></td>
 </tr>
 <tr>
-<td style="text-align: center;"><code>pwd</code></td>
-<td style="text-align: center;">显示当前路径</td>
-<td style="text-align: center;"><code>find</code></td>
-<td style="text-align: center;">寻找文件</td>
+<td><code>move</code></td>
+<td>移动、重命名</td>
+<td><code>mv</code></td>
 </tr>
 <tr>
-<td style="text-align: center;"><code>ls</code></td>
-<td style="text-align: center;">查看目录中的文件</td>
-<td style="text-align: center;"><code>whereis</code></td>
-<td style="text-align: center;">寻找命令路径</td>
+<td><code>copy</code></td>
+<td>复制</td>
+<td><code>cp</code></td>
 </tr>
 <tr>
-<td style="text-align: center;"><code>mkdir</code></td>
-<td style="text-align: center;">新建目录</td>
-<td style="text-align: center;"><code>passwd</code></td>
-<td style="text-align: center;">修改密码</td>
+<td><code>mkdir</code>/<code>md</code></td>
+<td>新建目录</td>
+<td><code>mkdir</code></td>
 </tr>
 <tr>
-<td style="text-align: center;"><code>neofetch</code></td>
-<td style="text-align: center;">查看系统</td>
-<td style="text-align: center;"><code>atop</code></td>
-<td style="text-align: center;">监视系统</td>
+<td><code>type</code></td>
+<td>显示文件内容</td>
+<td><code>cat</code></td>
 </tr>
 <tr>
-<td style="text-align: center;"><code>less</code></td>
-<td style="text-align: center;">滚动查看内容</td>
-<td style="text-align: center;"><code>grep</code></td>
-<td style="text-align: center;">搜索字符串</td>
+<td><code>fc</code></td>
+<td>比较文件内容</td>
+<td><code>diff</code></td>
 </tr>
 <tr>
-<td style="text-align: center;"><code>exa</code></td>
-<td style="text-align: center;">比 <code>ls</code> 更好用</td>
-<td style="text-align: center;"><code>tldr</code></td>
-<td style="text-align: center;">命令提示</td>
+<td><code>dir</code></td>
+<td>显示当前路径</td>
+<td><code>ls</code></td>
+</tr>
+<tr>
+<td><code>findstr</code></td>
+<td>搜索字符串</td>
+<td><code>grep</code></td>
+</tr>
+<tr>
+<td><code>where</code></td>
+<td>寻找命令路径</td>
+<td><code>whereis</code></td>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Shell 本质是调用系统内置的程序。<br />
-Shell 会遍历PATH(环境变量)中的所有位置来搜索</p>
-</div>
-<h3 id="linux">Linux中的路径</h3>
+<h2 id="_1">账户权限</h2>
 <ul>
 <li>
-<dl>
-<dt>绝对路径 v.s. 相对路径</dt>
-<dd>绝对路径：<code>/</code>开头</dd>
-<dd>相对路径从<code>当前路径</code>出发  </dd>
-</dl>
+<p>Windows 中三类不同权限的账户  </p>
+<ul>
+<li>管理员账户：最高权限，完全使用计算机，可管理其他账户  </li>
+<li>标准用户账户：可以访问计算机、执行程序，无法更改影响其他用户的设置以及系统设置/安装软件  </li>
+<li>来宾账户：用于临时访问，无法更改系统设置、安装应用、访问私密文件  </li>
+</ul>
 </li>
-<li>cd指令切换当前路径  </li>
 <li>
-<dl>
-<dt>特殊路径：</dt>
-<dd><code>.</code>:当前路径  </dd>
-<dd><code>..</code>:父路径</dd>
-<dd><code>-</code>:上次到达的路径</dd>
-<dd><code>~</code>:home所在路径</dd>
-</dl>
+<p>为程序提升权限——“以管理员身份运行”</p>
 </li>
 </ul>
+<h3 id="reference">Reference</h3>
+<p>[1] https://games-cn.org/games002-slides/</p>
 
 
 

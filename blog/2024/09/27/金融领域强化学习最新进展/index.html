@@ -18,7 +18,7 @@
         <link rel="prev" href="../../19/%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2%E7%9B%B8%E5%85%B3/">
       
       
-        <link rel="next" href="../../30/games002-notes/">
+        <link rel="next" href="../../30/%E9%87%91%E8%9E%8D%E9%A2%86%E5%9F%9F%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%9C%80%E6%96%B0%E8%BF%9B%E5%B1%95/">
       
       
       <link rel="icon" href="../../../../../assets/images/favicon.png">
@@ -127,7 +127,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#recent-advances-in-reinforcement-learning-in-finance" class="md-skip">
+        <a href="#recent-advances-in-reinforcement-learning-in-finance-1" class="md-skip">
           Skip to content
         </a>
       
@@ -984,20 +984,25 @@
         
 
 
-<h1 id="recent-advances-in-reinforcement-learning-in-finance">Recent advances in reinforcement learning in finance</h1>
+<h1 id="recent-advances-in-reinforcement-learning-in-finance-1">Recent advances in reinforcement learning in finance (1)</h1>
 <p>这是一篇金融领域强化学习的综述（2021）。经典的随机控制理论和其他分析方法解决金融决策问题，严重依赖模型假设。而强化学习（RL）的新发展能够用较少的模型假设，充分利用大量的金融数据，并在复杂的金融环境中改进决策。</p>
 <!-- more -->
 
 <p><strong>Autor：</strong> Ben Hambly, Renyuan Xu, Huining Yang</p>
 <h2 id="2">2.强化学习基础</h2>
 <h3 id="21-setupmarkov-decision-processes">2.1 Setup:Markov decision processes</h3>
-<p>投资组合优化问题，通常有两类问题，一类是无限时间范围的马尔科夫决策过程(MDPs, Markov decision processes)，另一类则是有限时间范围的MDPs。前者主要研究长期投资策略，如养老金问题。而后者主要研究短期内的交易，如资产购买或清算的最优执行问题，如果目标金额没有被完全执行，则可能会在终止时间收到处罚。</p>
+<p>马尔科夫决策过程(MDPs, Markov decision processes)是具有马尔科夫性质的随机过程。</p>
+<p>投资组合优化问题，通常有两类问题，一类是的 Infinite time horizon 的 MDPs，
+另一类则是 finite time horizon 的MDPs。
+前者主要研究长期的投资策略，如养老金问题。
+而后者主要研究短期内的交易，如资产购买或清算的最优执行问题，
+若目标金额没有被完全执行，则可能会在终止时间受到处罚。</p>
 <h4 id="infinite-time-horizon-and-discounted-reward"><em>Infinite time horizon and discounted reward.</em></h4>
-<p>首先考虑无<strong>限时间范围和折扣奖励的</strong>的<strong>离散时间MDP</strong>。</p>
+<p>首先考虑<strong>无限时间范围和折扣奖励的</strong>的<strong>离散时间MDP</strong>。</p>
 <ul>
 <li>状态空间 <span class="arithmatex">\(\mathcal{S}\)</span>，Markov process取值的空间</li>
 <li>动作集合 <span class="arithmatex">\(\mathcal{A}\)</span>，通过在集合中采取动作影响演化</li>
-<li>目的是通过选择一个策略（沿着时间的行动顺序）来优化系统的预期回报。</li>
+<li>目的是通过选择一个策略（沿着时间顺序行动）来优化系统的预期回报。</li>
 </ul>
 <p>通过定义值函数来数学的表示这一点</p>
 <p>Define value function <span class="arithmatex">\(V^*\)</span> for each <span class="arithmatex">\(s \in \mathcal{S}\)</span> to be</p>
@@ -1041,23 +1046,23 @@
 </dl>
 </li>
 </ul>
-<p>在带有无限时间范围情况下，假设奖励 <span class="arithmatex">\(r\)</span> 和转移动态 <span class="arithmatex">\(P\)</span> 是时间齐次的，
+<p>MDPs With infinite-time horizon，假设奖励 <span class="arithmatex">\(r\)</span> 和转移动态 <span class="arithmatex">\(P\)</span> 是时间齐次(time homogeneous)的，
 这在马尔可夫决策过程文献中是一个标准假设。
 此外，如果考虑最小化成本而不是最大化奖励，问题的设置本质上是相同的。</p>
-<p>著名的动态规划原则(dynamic programming principle, DPP)，
-即最优策略可以通过最大化一步的奖励然后从新的状态进行最优化处理，
-可以用来推导值函数(1)的贝尔曼方程</p>
+<p>动态规划原则(dynamic programming principle, DPP)指的是最优策略可以通过最大化
+单步的奖励，然后从新的状态进行最优化处理。
+我们可以用它来推导值函数(1)的贝尔曼方程</p>
 <div class="arithmatex">\[\begin{equation}
     V^{*}(s)=\sup _{a \in \mathcal{A}}\left\{\mathbb{E}[r(s, a)]+\gamma \mathbb{E}_{s^{\prime} \sim P(s, a)}\left[V^{*}\left(s^{\prime}\right)\right]\right\} .
 \end{equation}\]</div>
-<p>可以将值函数写成</p>
+<p>引入 Q-function ，我们可以将值函数改写成</p>
 <div class="arithmatex">\[V^{*}(s)=\sup _{a \in \mathcal{A}} Q^{*}(s, a) ,\]</div>
-<p>其中，<span class="arithmatex">\(Q\)</span>-function，用于RL的基本量之一，定义如下</p>
+<p>Q-function 是RL中的其中一个基本量，定义如下：</p>
 <div class="arithmatex">\[\begin{equation}
     Q^{*}(s, a)=\mathbb{E}[r(s, a)]+\gamma \mathbb{E}_{s^{\prime} \sim P(s, a)}\left[V^{*}\left(s^{\prime}\right)\right],
 \end{equation}\]</div>
 <p>在状态 <span class="arithmatex">\(s\)</span> 下采取动作 <span class="arithmatex">\(a\)</span> 的预期奖励，后再采取最优化策略。
-对于 <span class="arithmatex">\(Q\)</span>-function，也有贝尔曼方程，如下：</p>
+对于 Q-function，也可以写出他的贝尔曼方程，如下：</p>
 <div class="arithmatex">\[\begin{equation}
     Q^{*}(s, a)=\mathbb{E}[r(s, a)]+\gamma \mathbb{E}_{s^{\prime} \sim P(s, a)} \sup _{a^{\prime} \in \mathcal{A}} Q^{*}\left(s^{\prime}, a^{\prime}\right) .
 \end{equation}\]</div>
@@ -1297,6 +1302,7 @@ Initialize <span class="arithmatex">\(s\)</span><br />
 <li>TD error 和TD target 是分析近似值函数收敛性的两个重要组成部分</li>
 </ul>
 <h4 id="232-q-learning-algorithm">2.3.2 Q-learning algorithm</h4>
+<p>[TODO]</p>
 
 
 
