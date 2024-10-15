@@ -810,6 +810,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#5result" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.Result
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -895,7 +904,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              10 min read
+                              11 min read
                             
                           </span>
                         </div>
@@ -965,7 +974,7 @@
     &amp;\mathbb{E}_t[r_tu_t^\pi] = \mathbb{E}_t[r_t]\mathbb{E}_t[u_t^\pi] = a\int_{\mathbb{R}}u\pi_t(u)du,\\
     &amp;\mathbb{E}_t[(r_tu_t^\pi)^2]=\mathbb{E}_t[(r_t)^2]\mathbb{E}_t[(u_t^\pi)^2]=(a^2+\sigma^2)\int_{\mathbb{R}}u^2\pi_t(u)du.
 \end{align*}\]</div>
-<p>随机分布控制过程 <span class="arithmatex">\(\boldsymbol{\pi} =\{\pi_t,0 \le t &lt; T\}\)</span> 建模总体水平由累积熵捕捉的探索。</p>
+<p>随机分布控制过程 <span class="arithmatex">\(\boldsymbol{\pi} =\{\pi_t,0 \le t &lt; T\}\)</span> 用总体的累积熵去刻画的强化学习的探索过程。</p>
 <div class="arithmatex">\[\begin{equation*}
     \mathcal{H}(\boldsymbol{\pi}) := -\sum_{t=0}^{T-1}\int_{\mathbb{R}}\pi_t(u)\ln\pi_t(u)du.
 \end{equation*}\]</div>
@@ -1210,6 +1219,38 @@ and the corresponding value function
 <dd><strong>迭代：</strong>重复以上步骤，直到策略收敛</dd>
 </dl>
 </details>
+<h2 id="5result">5.Result</h2>
+<p>根据该论文复现的实验结果如下：</p>
+<p>b = 1.1, a = 0.3, sigma = 0.3
+收益: 0.1033, 标准差: 0.1201, 夏普比率: 0.8604</p>
+<p>b = 1.07, a = 0.3, sigma = 0.3
+收益: 0.0710, 标准差: 0.0921, 夏普比率: 0.7707</p>
+<p>b = 1.05, a = 0.3, sigma = 0.3
+收益: 0.0502, 标准差: 0.0665, 夏普比率: 0.7546</p>
+<p>b = 1.1, a = 0.3, sigma = 0.2
+收益: 0.1078, 标准差: 0.1661, 夏普比率: 0.6488</p>
+<p>b = 1.07, a = 0.3, sigma = 0.2
+收益: 0.0717, 标准差: 0.1144, 夏普比率: 0.6263</p>
+<p>b = 1.05, a = 0.3, sigma = 0.2
+收益: 0.0522, 标准差: 0.0764, 夏普比率: 0.6833</p>
+<figure>
+  <img alt="b=1.05, a=0.3, sigma=0.2" src="../../../../%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/1.%E5%9F%BA%E4%BA%8E%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%9D%87%E5%80%BC%E6%96%B9%E5%B7%AE%E7%AD%96%E7%95%A5/images/Learning%20Curves_1.05_0.3_0.2.png" width="auto" />
+</figure>
+<figure>
+  <img alt="b=1.07, a=0.3, sigma=0.2" src="../../../../%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/1.%E5%9F%BA%E4%BA%8E%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%9D%87%E5%80%BC%E6%96%B9%E5%B7%AE%E7%AD%96%E7%95%A5/images/Learning%20Curves_1.07_0.3_0.2.png" width="auto" />
+</figure>
+<figure>
+  <img alt="b=1.1, a=0.3, sigma=0.2" src="../../../../%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/1.%E5%9F%BA%E4%BA%8E%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%9D%87%E5%80%BC%E6%96%B9%E5%B7%AE%E7%AD%96%E7%95%A5/images/Learning%20Curves_1.1_0.3_0.2.png" width="auto" />
+</figure>
+<figure>
+  <img alt="b=1.05, a=0.3, sigma=0.3" src="../../../../%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/1.%E5%9F%BA%E4%BA%8E%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%9D%87%E5%80%BC%E6%96%B9%E5%B7%AE%E7%AD%96%E7%95%A5/images/Learning%20Curves_1.05_0.3_0.3.png" width="auto" />
+</figure>
+<figure>
+  <img alt="b=1.07, a=0.3, sigma=0.3" src="../../../../%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/1.%E5%9F%BA%E4%BA%8E%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%9D%87%E5%80%BC%E6%96%B9%E5%B7%AE%E7%AD%96%E7%95%A5/images/Learning%20Curves_1.07_0.3_0.3.png" width="auto" />
+</figure>
+<figure>
+  <img alt="b=1.1, a=0.3, sigma=0.3" src="../../../../%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/1.%E5%9F%BA%E4%BA%8E%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%9D%87%E5%80%BC%E6%96%B9%E5%B7%AE%E7%AD%96%E7%95%A5/images/Learning%20Curves_1.1_0.3_0.3.png" width="auto" />
+</figure>
 
 
 
