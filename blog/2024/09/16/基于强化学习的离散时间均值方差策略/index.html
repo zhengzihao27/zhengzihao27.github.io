@@ -532,6 +532,8 @@
       
         
       
+        
+      
     
     
       
@@ -569,6 +571,29 @@
             Categories
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/code/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1181,7 +1206,7 @@ and the corresponding value function
     J^{\theta}(T, x ; w) &amp;=\left(x- w\right)^{2}+\theta_{2} T^{2}+\theta_{3} T+\theta_{4} \\
     &amp; =(x-w)^{2}-(w-b)^{2}
 \end{align*}\]</div>
-<p>换句话说 <span class="arithmatex">\((\theta_1,\theta4)\)</span> 的更新方案如下：</p>
+<p>换句话说 <span class="arithmatex">\((\theta_1,\theta_4)\)</span> 的更新方案如下：</p>
 <ul>
 <li><span class="arithmatex">\(\theta_1 = e^{-2\phi_2}\)</span> </li>
 <li><span class="arithmatex">\(\theta_{4}=-\theta_{2} T^{2}-\theta_{3} T-(w-b)^{2}\)</span> </li>
@@ -1220,7 +1245,8 @@ and the corresponding value function
 </dl>
 </details>
 <h2 id="5result">5.Result</h2>
-<p>根据该论文复现的实验结果如下：</p>
+<p>论文复现代码过程，查阅<a href="../../../10/16/discrete-time-exploratory-mv-algorithm/">此处</a></p>
+<p>论文复现实验结果如下：</p>
 <p>b = 1.1, a = 0.3, sigma = 0.3
 收益: 0.1033, 标准差: 0.1201, 夏普比率: 0.8604</p>
 <p>b = 1.07, a = 0.3, sigma = 0.3
