@@ -907,7 +907,7 @@
                       <li class="md-nav__item">
                         <div class="md-nav__link">
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 13h1.5v2.82l2.44 1.41-.75 1.3L15 16.69zm4-5H5v11h4.67c-.43-.91-.67-1.93-.67-3a7 7 0 0 1 7-7c1.07 0 2.09.24 3 .67zM5 21a2 2 0 0 1-2-2V5c0-1.11.89-2 2-2h1V1h2v2h8V1h2v2h1a2 2 0 0 1 2 2v6.1c1.24 1.26 2 2.99 2 4.9a7 7 0 0 1-7 7c-1.91 0-3.64-.76-4.9-2zm11-9.85A4.85 4.85 0 0 0 11.15 16c0 2.68 2.17 4.85 4.85 4.85A4.85 4.85 0 0 0 20.85 16c0-2.68-2.17-4.85-4.85-4.85"/></svg>
-                          <time datetime="2024-09-24 00:00:00" class="md-ellipsis">September 24, 2024</time>
+                          <time datetime="2024-10-16 00:00:00" class="md-ellipsis">October 16, 2024</time>
                         </div>
                       </li>
                     
@@ -1247,18 +1247,50 @@ and the corresponding value function
 <h2 id="5result">5.Result</h2>
 <p>论文复现代码过程，查阅<a href="../../../10/16/discrete-time-exploratory-mv-algorithm/">此处</a></p>
 <p>论文复现实验结果如下：</p>
-<p>b = 1.1, a = 0.3, sigma = 0.3
-收益: 0.1033, 标准差: 0.1201, 夏普比率: 0.8604</p>
-<p>b = 1.07, a = 0.3, sigma = 0.3
-收益: 0.0710, 标准差: 0.0921, 夏普比率: 0.7707</p>
-<p>b = 1.05, a = 0.3, sigma = 0.3
-收益: 0.0502, 标准差: 0.0665, 夏普比率: 0.7546</p>
-<p>b = 1.1, a = 0.3, sigma = 0.2
-收益: 0.1078, 标准差: 0.1661, 夏普比率: 0.6488</p>
-<p>b = 1.07, a = 0.3, sigma = 0.2
-收益: 0.0717, 标准差: 0.1144, 夏普比率: 0.6263</p>
-<p>b = 1.05, a = 0.3, sigma = 0.2
-收益: 0.0522, 标准差: 0.0764, 夏普比率: 0.6833</p>
+<table>
+<thead>
+<tr>
+<th>Target wealth b</th>
+<th>a = 30%, sigma = 20%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>b = 1.1</td>
+<td>mean = 0.1078, std = 0.1661, SR = 0.6488</td>
+</tr>
+<tr>
+<td>b = 1.07</td>
+<td>mean = 0.0717, std = 0.1144, SR = 0.6263</td>
+</tr>
+<tr>
+<td>b = 1.05</td>
+<td>mean = 0.0522, std = 0.0764, SR = 0.6833</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Target wealth b</th>
+<th>a = 30%, sigma = 30%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>b = 1.1</td>
+<td>mean = 0.1033, std = 0.1201, SR = 0.8604</td>
+</tr>
+<tr>
+<td>b = 1.07</td>
+<td>mean = 0.0710, std = 0.0921, SR = 0.7707</td>
+</tr>
+<tr>
+<td>b = 1.05</td>
+<td>mean = 0.0502, std = 0.0665, SR = 0.7546</td>
+</tr>
+</tbody>
+</table>
 <figure>
   <img alt="b=1.05, a=0.3, sigma=0.2" src="../../../../%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/1.%E5%9F%BA%E4%BA%8E%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%9D%87%E5%80%BC%E6%96%B9%E5%B7%AE%E7%AD%96%E7%95%A5/images/Learning%20Curves_1.05_0.3_0.2.png" width="auto" />
 </figure>
